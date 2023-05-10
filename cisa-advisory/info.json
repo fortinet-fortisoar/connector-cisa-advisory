@@ -2,7 +2,7 @@
     "name": "cisa-advisory",
     "version": "1.0.0",
     "label": "CISA Advisory",
-    "description": "CISA Advisory connector fetches the Advisory published by CISA on daily basis",
+    "description": "CISA Advisory connector fetches the Advisory published by CISA",
     "publisher": "",
     "icon_small_name": "",
     "icon_large_name": "",
