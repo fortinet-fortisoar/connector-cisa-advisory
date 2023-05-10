@@ -1,3 +1,6 @@
+"""
+This file will be auto-generated on each "new operation action", so avoid editing in this file.
+"""
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -124,7 +127,7 @@ def get_ics_advisory_by_product(config, params):
         output = []
         ics_advisory_url = REPO_URL + 'ics-advisory/'
         advisory_obj = Advisory(ics_advisory_url)
-        ics_advisory_data = advisory_obj.get_ics_data(ics_advisory_url, params)
+        ics_advisory_data = advisory_obj.get_ics_data()
         for advisory in ics_advisory_data:
             if params['product'].strip().lower() == advisory['product'].lower() or params['product'].strip().lower() in \
                     advisory['product'].lower():
@@ -182,7 +185,7 @@ def get_ics_medical_advisory_by_product(config, params):
         output = []
         ics_advisory_url = REPO_URL + 'ics-medical-advisory/'
         advisory_obj = Advisory(ics_advisory_url)
-        ics_advisory_data = advisory_obj.get_ics_data(ics_advisory_url, params)
+        ics_advisory_data = advisory_obj.get_ics_data()
         for advisory in ics_advisory_data:
             if params['product'].strip().lower() == advisory['product'].lower() or params['product'].strip().lower() in \
                     advisory['product'].lower():
