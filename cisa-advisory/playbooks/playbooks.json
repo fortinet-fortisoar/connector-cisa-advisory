@@ -1,0 +1,650 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "59b85990-0641-476d-84fa-92f58445d0fd",
+      "@type": "WorkflowCollection",
+      "name": "Sample - CISA Advisory - 1.0.0",
+      "description": "CISA Advisory connector fetches the Advisory published by CISA on daily basis",
+      "visible": true,
+      "image": null,
+      "recordTags": [
+        "cisa-advisory"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "7a4c8193-28d0-45cf-aa07-a5699d401213",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches all the ICS Advisory till present date or by provided date filter.",
+          "name": "Get ICS Advisory",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/19a5f41f-4f9f-42bd-8be4-85035d7c9d82",
+          "steps": [
+            {
+              "uuid": "19a5f41f-4f9f-42bd-8be4-85035d7c9d82",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "bdef3bca-9ab6-47ce-81e9-c5d3010ec3fe",
+                "title": "CISA Advisory: Get ICS Advisory",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "f4b90aea-c628-48d9-b311-8554b5d20206",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Advisory",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_advisory",
+                "operationTitle": "Get ICS Advisory",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "80586283-690d-4111-add0-10017d522844",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Advisory",
+              "sourceStep": "/api/3/workflow_steps/19a5f41f-4f9f-42bd-8be4-85035d7c9d82",
+              "targetStep": "/api/3/workflow_steps/f4b90aea-c628-48d9-b311-8554b5d20206"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "a7eb111f-4131-48db-b67d-9a5522dfd4a3",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches ICS Advisory on the basis of specified vendor name.",
+          "name": "Get ICS Advisory By Vendor",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/99acc7ad-261a-4b58-81e7-843441e9e9bf",
+          "steps": [
+            {
+              "uuid": "99acc7ad-261a-4b58-81e7-843441e9e9bf",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "d80ae330-dc85-46fc-a6a1-19a0e9d632ae",
+                "title": "CISA Advisory: Get ICS Advisory By Vendor",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "c5ed54fa-a2ce-40ee-be88-eed0a601e412",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Advisory By Vendor",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_advisory_by_vendor",
+                "operationTitle": "Get ICS Advisory By Vendor",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "6961feee-0e43-45a9-b1b2-183faa482adb",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Advisory By Vendor",
+              "sourceStep": "/api/3/workflow_steps/99acc7ad-261a-4b58-81e7-843441e9e9bf",
+              "targetStep": "/api/3/workflow_steps/c5ed54fa-a2ce-40ee-be88-eed0a601e412"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "f8ab5bd9-54d0-4908-bff2-5a8e8ee7b3bf",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches ICS Advisory on the basis of specified year.",
+          "name": "Get ICS Advisory By Year",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/9f8f3355-adb7-48c2-afa9-514b1d91f2c9",
+          "steps": [
+            {
+              "uuid": "9f8f3355-adb7-48c2-afa9-514b1d91f2c9",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "29052bd2-67b8-4a2e-966c-26c078b2f490",
+                "title": "CISA Advisory: Get ICS Advisory By Year",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "f2d55a26-6c0b-466b-a7aa-7870f89dc186",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Advisory By Year",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_advisory_by_year",
+                "operationTitle": "Get ICS Advisory By Year",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "cff17da5-5313-49f3-8a12-c2b1bd7f5c64",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Advisory By Year",
+              "sourceStep": "/api/3/workflow_steps/9f8f3355-adb7-48c2-afa9-514b1d91f2c9",
+              "targetStep": "/api/3/workflow_steps/f2d55a26-6c0b-466b-a7aa-7870f89dc186"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "619f9f31-b0c8-40e0-b1d6-9f3cc1be4adc",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches ICS Advisory on the basis of specified product name and version.",
+          "name": "Get ICS Advisory By Product",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/ab9b7027-93fb-4706-9f6c-7efa98dc91b9",
+          "steps": [
+            {
+              "uuid": "ab9b7027-93fb-4706-9f6c-7efa98dc91b9",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "85102cf0-a767-491d-8649-6fff5badcf6f",
+                "title": "CISA Advisory: Get ICS Advisory By Product",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "93402ebb-1cbe-43b6-9acc-ea3b1bdf98cc",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Advisory By Product",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_advisory_by_product",
+                "operationTitle": "Get ICS Advisory By Product",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "497b8901-3496-484f-9b41-eb337fcdc6df",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Advisory By Product",
+              "sourceStep": "/api/3/workflow_steps/ab9b7027-93fb-4706-9f6c-7efa98dc91b9",
+              "targetStep": "/api/3/workflow_steps/93402ebb-1cbe-43b6-9acc-ea3b1bdf98cc"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "5fe98da3-0379-4146-bbcd-dc941b33eb97",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches all the ICS Medical Advisory till present date or by provided date filter.",
+          "name": "Get ICS Medical Advisory",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/534d1078-b189-47a3-8afe-04736988ad94",
+          "steps": [
+            {
+              "uuid": "534d1078-b189-47a3-8afe-04736988ad94",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "84ef784f-d801-47dd-9509-bdae3485bcda",
+                "title": "CISA Advisory: Get ICS Medical Advisory",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "e833eddd-eac5-460a-93c5-56bb2a441043",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Medical Advisory",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_medical_advisory",
+                "operationTitle": "Get ICS Medical Advisory",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "699a2850-b7ab-4533-aa6c-db60d11cede3",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Medical Advisory",
+              "sourceStep": "/api/3/workflow_steps/534d1078-b189-47a3-8afe-04736988ad94",
+              "targetStep": "/api/3/workflow_steps/e833eddd-eac5-460a-93c5-56bb2a441043"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "a0765309-91fd-44fa-b971-7ddca0d928ce",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches ICS Medical Advisory on the basis of specified vendor name.",
+          "name": "Get ICS Medical Advisory By Vendor",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/d62a1a06-036b-4890-adc7-d17065936b88",
+          "steps": [
+            {
+              "uuid": "d62a1a06-036b-4890-adc7-d17065936b88",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "bc10e67d-73ad-42d6-872c-a65f3d2d7a91",
+                "title": "CISA Advisory: Get ICS Medical Advisory By Vendor",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "758ebef2-9c8b-4c7e-a21a-b1dead1744b8",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Medical Advisory By Vendor",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_medical_advisory_by_vendor",
+                "operationTitle": "Get ICS Medical Advisory By Vendor",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "48a44818-6937-452e-ab01-66f6a9175c1b",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Medical Advisory By Vendor",
+              "sourceStep": "/api/3/workflow_steps/d62a1a06-036b-4890-adc7-d17065936b88",
+              "targetStep": "/api/3/workflow_steps/758ebef2-9c8b-4c7e-a21a-b1dead1744b8"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "17d0360c-3b9f-4af2-8f6e-ef0fc9937e32",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches ICS Medical Advisory on the basis of specified year.",
+          "name": "Get ICS Medical Advisory By Year",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/c507361f-ba3f-4757-933c-5a2c5048287f",
+          "steps": [
+            {
+              "uuid": "c507361f-ba3f-4757-933c-5a2c5048287f",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "c967cc0b-1d08-4bec-8399-b49dc906e8f3",
+                "title": "CISA Advisory: Get ICS Medical Advisory By Year",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "d50ea50f-28df-4b9b-a114-8b08cf018239",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Medical Advisory By Year",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_medical_advisory_by_year",
+                "operationTitle": "Get ICS Medical Advisory By Year",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "41a3244b-8930-4dc7-93a1-fb1845d5be42",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Medical Advisory By Year",
+              "sourceStep": "/api/3/workflow_steps/c507361f-ba3f-4757-933c-5a2c5048287f",
+              "targetStep": "/api/3/workflow_steps/d50ea50f-28df-4b9b-a114-8b08cf018239"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "5fc658e7-a4b2-4e4f-9c2c-da7472d77776",
+          "collection": "/api/3/workflow_collections/59b85990-0641-476d-84fa-92f58445d0fd",
+          "triggerLimit": null,
+          "description": "Fetches ICS Medical Advisory on the basis of specified product name and version.",
+          "name": "Get ICS Medical Advisory By Product",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/1481a1eb-e91a-4045-8f19-a013b98a3947",
+          "steps": [
+            {
+              "uuid": "1481a1eb-e91a-4045-8f19-a013b98a3947",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "994387d2-25d4-4c22-9493-f6d846fea918",
+                "title": "CISA Advisory: Get ICS Medical Advisory By Product",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "55c13629-c2f1-43bc-a144-27e8f9de8609",
+              "@type": "WorkflowStep",
+              "name": "Get ICS Medical Advisory By Product",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "cisa-advisory",
+                "operation": "get_ics_medical_advisory_by_product",
+                "operationTitle": "Get ICS Medical Advisory By Product",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "2ef91ad0-c686-4943-b43c-38ca84d89d5c",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICS Medical Advisory By Product",
+              "sourceStep": "/api/3/workflow_steps/1481a1eb-e91a-4045-8f19-a013b98a3947",
+              "targetStep": "/api/3/workflow_steps/55c13629-c2f1-43bc-a144-27e8f9de8609"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

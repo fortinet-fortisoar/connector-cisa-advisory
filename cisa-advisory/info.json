@@ -1,0 +1,407 @@
+{
+    "name": "cisa-advisory",
+    "version": "1.0.0",
+    "label": "CISA Advisory",
+    "description": "CISA Advisory connector fetches the Advisory published by CISA on daily basis",
+    "publisher": "",
+    "icon_small_name": "",
+    "icon_large_name": "",
+    "configuration": {
+        "fields": []
+    },
+    "operations": [
+        {
+            "operation": "get_ics_advisory",
+            "title": "Get ICS Advisory",
+            "annotation": "get_ics_advisory",
+            "description": "Fetches all the ICS Advisory till present date or by provided date filter.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "date_filter",
+                    "title": "Date Filter",
+                    "type": "select",
+                    "editable": true,
+                    "visible": true,
+                    "required": false,
+                    "description": "Specify the date filter.",
+                    "options": [
+                        "Today",
+                        "Last 7 Days",
+                        "Last 30 Days",
+                        "This Month",
+                        "This Year",
+                        "Last Month",
+                        "Last 3 Months",
+                        "Last 6 Months",
+                        "Last Date Published Advisory"
+                    ]
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_advisory_by_vendor",
+            "title": "Get ICS Advisory By Vendor",
+            "annotation": "get_ics_advisory_by_vendor",
+            "description": "Fetches ICS Advisory on the basis of specified vendor name.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "vendor",
+                    "title": "Vendor",
+                    "type": "text",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specify the vendor to get ICS Advisory "
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_advisory_by_year",
+            "title": "Get ICS Advisory By Year",
+            "annotation": "get_ics_advisory_by_year",
+            "description": "Fetches ICS Advisory on the basis of specified year.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "year",
+                    "title": "Year",
+                    "type": "select",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specifiy the year to fetch ICS Advisory",
+                    "options": [
+                        "2023",
+                        "2022",
+                        "2021",
+                        "2020",
+                        "2019",
+                        "2018",
+                        "2017",
+                        "2016",
+                        "2015",
+                        "2014",
+                        "2013",
+                        "2012",
+                        "2011",
+                        "2010"
+                    ]
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_advisory_by_product",
+            "title": "Get ICS Advisory By Product",
+            "annotation": "get_ics_advisory_by_product",
+            "description": "Fetches ICS Advisory on the basis of specified product name and version.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "product",
+                    "title": "Product",
+                    "type": "text",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "tooltip": "Specify the product to get ICS Advisory",
+                    "description": "Specify the product to get ICS Advisory"
+                },
+                {
+                    "name": "version",
+                    "title": "Version",
+                    "type": "text",
+                    "editable": true,
+                    "visible": true,
+                    "required": false,
+                    "tooltip": "Specify the version of product to get ICS Advisory",
+                    "description": "Specify the version of product to get ICS Advisory"
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_medical_advisory",
+            "title": "Get ICS Medical Advisory",
+            "annotation": "get_ics_medical_advisory",
+            "description": "Fetches all the ICS Medical Advisory till present date or by provided date filter.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "date_filter",
+                    "title": "Date Filter",
+                    "type": "select",
+                    "editable": true,
+                    "visible": true,
+                    "required": false,
+                    "description": "Date Filter",
+                    "options": [
+                        "Today",
+                        "Last 7 Days",
+                        "Last 30 Days",
+                        "This Month",
+                        "This Year",
+                        "Last Month",
+                        "Last 3 Months",
+                        "Last 6 Months",
+                        "Last Date Published Advisory"
+                    ]
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_medical_advisory_by_vendor",
+            "title": "Get ICS Medical Advisory By Vendor",
+            "annotation": "get_ics_medical_advisory_by_vendor",
+            "description": "Fetches ICS Medical Advisory on the basis of specified vendor name.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "vendor",
+                    "title": "Vendor",
+                    "type": "text",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specify the vendor to get ICS Advisory "
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_medical_advisory_by_year",
+            "title": "Get ICS Medical Advisory By Year",
+            "annotation": "get_ics_medical_advisory_by_year",
+            "description": "Fetches ICS Medical Advisory on the basis of specified year.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "year",
+                    "title": "Year",
+                    "type": "select",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specifiy the year to fetch ICS Advisory",
+                    "options": [
+                        "2023",
+                        "2022",
+                        "2021",
+                        "2020",
+                        "2019",
+                        "2018",
+                        "2017",
+                        "2016",
+                        "2015",
+                        "2014",
+                        "2013",
+                        "2012",
+                        "2011",
+                        "2010"
+                    ]
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_medical_advisory_by_product",
+            "title": "Get ICS Medical Advisory By Product",
+            "annotation": "get_ics_medical_advisory_by_product",
+            "description": "Fetches ICS Medical Advisory on the basis of specified product name and version.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "name": "product",
+                    "title": "Product",
+                    "type": "text",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "tooltip": "Specify the product to get ICS Advisory",
+                    "description": "Specify the product to get ICS Advisory"
+                },
+                {
+                    "name": "version",
+                    "title": "Version",
+                    "type": "text",
+                    "editable": true,
+                    "visible": true,
+                    "required": false,
+                    "tooltip": "Specify the version of product to get ICS Advisory",
+                    "description": "Specify the version of product to get ICS Advisory"
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": 0,
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquaters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        }
+    ],
+    "category": "Utilities",
+    "active": true,
+    "cs_compatible": true,
+    "help_online": "",
+    "cs_approved": true
+}
