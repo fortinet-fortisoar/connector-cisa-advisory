@@ -4,11 +4,16 @@
     "label": "CISA Advisory",
     "description": "CISA Advisory connector fetches the Advisory published by CISA",
     "publisher": "Fortinet",
-    "icon_small_name": "",
-    "icon_large_name": "",
+    "icon_small_name": "samll.png",
+    "icon_large_name": "large.png",
     "configuration": {
         "fields": []
     },
+    "category": "Utilities",
+    "active": true,
+    "cs_compatible": true,
+    "help_online": "",
+    "cs_approved": true,
     "operations": [
         {
             "operation": "get_ics_advisory",
@@ -398,10 +403,5 @@
                 "critical_infrastructure_sector": ""
             }
         }
-    ],
-    "category": "Utilities",
-    "active": true,
-    "cs_compatible": true,
-    "help_online": "",
-    "cs_approved": true
+    ]
 }
