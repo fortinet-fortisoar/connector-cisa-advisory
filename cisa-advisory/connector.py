@@ -2,7 +2,7 @@ from connectors.core.connector import Connector, get_logger, ConnectorError
 from .operations import operations, check_health
 
 logger = get_logger("cisa-advisory")
-class CustomConnector(Connector):
+class Advisory(Connector):
     def execute(self, config, operation, params, **kwargs):
         try:
             config['connector_info'] = {"connector_name": self._info_json.get('name'),
