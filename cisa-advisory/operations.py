@@ -16,22 +16,23 @@ logger = get_logger('cisa-advisory')
 
 class Advisory():
 
-    def __init__(self, url):
-        self.url = url
+    def __init__(self):
+        pass
 
-    def get_ics_data(self):
+    def get_ics_data(self, advisory_type):
         try:
             ics_advisory_url_by_year_links_list = []
             output = []
-            response = requests.get(self.url, verify=False)
+            url = REPO_URL + advisory_type + '/'
+            response = requests.get(url, verify=False)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
-                if 'ics-advisory' in link.get('href'):
+                if advisory_type in link.get('href'):
                     ics_advisory_url_by_year_links_list.append(
                         link.get('href'))
             for advisory_link in ics_advisory_url_by_year_links_list:
                 json_file_data = requests.get(
-                    self.url + advisory_link, verify=False)
+                    url + advisory_link, verify=False)
                 for item in json.loads(json_file_data.text):
                     output.append(item)
             return output
@@ -103,7 +104,7 @@ class Advisory():
 
     def set_ratio(self, str1, str2):
         try:
-            if str1 in str2 or str2 in str1:
+            if str1.lower() in str2.lower() or str2.lower() in str1.lower():
                 return 100
 
             count = 0
@@ -132,9 +133,8 @@ class Advisory():
 
 def get_ics_advisory(config, params):
     try:
-        ics_advisory_url = REPO_URL + 'ics-advisory/'
-        advisory_obj = Advisory(ics_advisory_url)
-        ics_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        ics_data = advisory_obj.get_ics_data('ics-advisory')
         if params['date_filter']:
             return advisory_obj.date_filter_advisory(params, ics_data)
         else:
@@ -158,9 +158,8 @@ def get_ics_advisory_by_year(config, params):
 def get_ics_advisory_by_vendor(config, params):
     try:
         output = []
-        ics_advisory_url = REPO_URL + 'ics-advisory/'
-        advisory_obj = Advisory(ics_advisory_url)
-        ics_advisory_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        ics_advisory_data = advisory_obj.get_ics_data('ics-advisory')
         for advisory in ics_advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['vendor'].strip()), advisory['vendor'])
@@ -175,9 +174,8 @@ def get_ics_advisory_by_vendor(config, params):
 def get_ics_advisory_by_product(config, params):
     try:
         output = []
-        ics_advisory_url = REPO_URL + 'ics-advisory/'
-        advisory_obj = Advisory(ics_advisory_url)
-        ics_advisory_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        ics_advisory_data = advisory_obj.get_ics_data('ics-advisory')
         for advisory in ics_advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['product'].strip()), advisory['product'])
@@ -197,9 +195,8 @@ def get_ics_advisory_by_product(config, params):
 
 def get_ics_medical_advisory(config, params):
     try:
-        ics_medical_advisory_url = REPO_URL + 'ics-medical-advisory/'
-        advisory_obj = Advisory(ics_medical_advisory_url)
-        ics_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        ics_data = advisory_obj.get_ics_data('ics-medical-advisory')
         if params['date_filter']:
             return advisory_obj.date_filter_advisory(params, ics_data)
         else:
@@ -223,9 +220,8 @@ def get_ics_medical_advisory_by_year(config, params):
 def get_ics_medical_advisory_by_vendor(config, params):
     try:
         output = []
-        ics_advisory_url = REPO_URL + 'ics-medical-advisory/'
-        advisory_obj = Advisory(ics_advisory_url)
-        ics_advisory_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        ics_advisory_data = advisory_obj.get_ics_data('ics-medical-advisory')
         for advisory in ics_advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['vendor'].strip()), advisory['vendor'])
@@ -240,9 +236,8 @@ def get_ics_medical_advisory_by_vendor(config, params):
 def get_ics_medical_advisory_by_product(config, params):
     try:
         output = []
-        ics_advisory_url = REPO_URL + 'ics-medical-advisory/'
-        advisory_obj = Advisory(ics_advisory_url)
-        ics_advisory_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        ics_advisory_data = advisory_obj.get_ics_data('ics-medical-advisory')
         for advisory in ics_advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['product'].strip()), advisory['product'])
