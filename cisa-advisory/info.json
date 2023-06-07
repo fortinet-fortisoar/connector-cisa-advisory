@@ -60,46 +60,7 @@
                 "cvss_severity": "",
                 "cvss_score": "",
                 "affected_product": "",
-                "company_headquaters_location": "",
-                "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
-            }
-        },
-        {
-            "operation": "get_ics_advisory_by_vendor",
-            "title": "Get ICS Advisory By Vendor",
-            "annotation": "get_ics_advisory_by_vendor",
-            "description": "Fetches ICS Advisory on the basis of specified vendor name.",
-            "category": "investigation",
-            "is_config_required": true,
-            "visible": true,
-            "enabled": true,
-            "parameters": [
-                {
-                    "name": "vendor",
-                    "title": "Vendor",
-                    "type": "text",
-                    "editable": true,
-                    "visible": true,
-                    "required": true,
-                    "description": "Specify the vendor to get ICS Advisory "
-                }
-            ],
-            "output_schema": {
-                "url": "",
-                "name": "",
-                "icsa_code": "",
-                "year": "",
-                "vendor": "",
-                "product": "",
-                "cve_list": [],
-                "cwe_list": [],
-                "release_date": "",
-                "updated_date": "",
-                "cvss_severity": "",
-                "cvss_score": "",
-                "affected_product": "",
-                "company_headquaters_location": "",
+                "company_headquarters_location": "",
                 "country_area_deployed": "",
                 "critical_infrastructure_sector": ""
             }
@@ -115,13 +76,12 @@
             "enabled": true,
             "parameters": [
                 {
-                    "name": "year",
                     "title": "Year",
                     "type": "select",
-                    "editable": true,
-                    "visible": true,
+                    "name": "year",
                     "required": true,
-                    "description": "Specifiy the year to fetch ICS Advisory",
+                    "visible": true,
+                    "editable": true,
                     "options": [
                         "2023",
                         "2022",
@@ -154,40 +114,37 @@
                 "cvss_severity": "",
                 "cvss_score": "",
                 "affected_product": "",
-                "company_headquaters_location": "",
+                "company_headquarters_location": "",
                 "country_area_deployed": "",
                 "critical_infrastructure_sector": ""
             }
         },
         {
-            "operation": "get_ics_advisory_by_product",
-            "title": "Get ICS Advisory By Product",
-            "annotation": "get_ics_advisory_by_product",
-            "description": "Fetches ICS Advisory on the basis of specified product name and version.",
+            "operation": "get_ics_advisory_by_vendor",
+            "title": "Get ICS Advisory By Vendor",
+            "annotation": "get_ics_advisory_by_vendor",
+            "description": "Fetches ICS Advisory on the basis of specified vendor name.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
             "enabled": true,
             "parameters": [
                 {
-                    "name": "product",
-                    "title": "Product",
+                    "title": "Vendor",
                     "type": "text",
-                    "editable": true,
-                    "visible": true,
+                    "name": "vendor",
                     "required": true,
-                    "tooltip": "Specify the product to get ICS Advisory",
-                    "description": "Specify the product to get ICS Advisory"
+                    "visible": true,
+                    "editable": true
                 },
                 {
-                    "name": "version",
-                    "title": "Version",
-                    "type": "text",
-                    "editable": true,
+                    "title": "Similarity Threshold",
+                    "type": "integer",
+                    "name": "similarityThreshold",
+                    "required": true,
                     "visible": true,
-                    "required": false,
-                    "tooltip": "Specify the version of product to get ICS Advisory",
-                    "description": "Specify the version of product to get ICS Advisory"
+                    "editable": true,
+                    "value": 75
                 }
             ],
             "output_schema": {
@@ -204,7 +161,64 @@
                 "cvss_severity": "",
                 "cvss_score": "",
                 "affected_product": "",
-                "company_headquaters_location": "",
+                "company_headquarters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_advisory_by_product",
+            "title": "Get ICS Advisory By Product",
+            "annotation": "get_ics_advisory_by_product",
+            "description": "Fetches ICS Advisory on the basis of specified product name and version.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Product",
+                    "type": "text",
+                    "name": "product",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "tooltip": "Specify the product to get ICS Advisory"
+                },
+                {
+                    "title": "Version",
+                    "type": "text",
+                    "name": "version",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "tooltip": "Specify the version of product to get ICS Advisory"
+                },
+                {
+                    "title": "Similarity Threshold",
+                    "type": "integer",
+                    "name": "similarityThreshold",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "value": 75
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": "",
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquarters_location": "",
                 "country_area_deployed": "",
                 "critical_infrastructure_sector": ""
             }
@@ -220,13 +234,12 @@
             "enabled": true,
             "parameters": [
                 {
-                    "name": "date_filter",
                     "title": "Date Filter",
                     "type": "select",
-                    "editable": true,
-                    "visible": true,
+                    "name": "date_filter",
                     "required": false,
-                    "description": "Date Filter",
+                    "visible": true,
+                    "editable": true,
                     "options": [
                         "Today",
                         "Last 7 Days",
@@ -254,46 +267,7 @@
                 "cvss_severity": "",
                 "cvss_score": "",
                 "affected_product": "",
-                "company_headquaters_location": "",
-                "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
-            }
-        },
-        {
-            "operation": "get_ics_medical_advisory_by_vendor",
-            "title": "Get ICS Medical Advisory By Vendor",
-            "annotation": "get_ics_medical_advisory_by_vendor",
-            "description": "Fetches ICS Medical Advisory on the basis of specified vendor name.",
-            "category": "investigation",
-            "is_config_required": true,
-            "visible": true,
-            "enabled": true,
-            "parameters": [
-                {
-                    "name": "vendor",
-                    "title": "Vendor",
-                    "type": "text",
-                    "editable": true,
-                    "visible": true,
-                    "required": true,
-                    "description": "Specify the vendor to get ICS Advisory "
-                }
-            ],
-            "output_schema": {
-                "url": "",
-                "name": "",
-                "icsa_code": "",
-                "year": "",
-                "vendor": "",
-                "product": "",
-                "cve_list": [],
-                "cwe_list": [],
-                "release_date": "",
-                "updated_date": "",
-                "cvss_severity": "",
-                "cvss_score": "",
-                "affected_product": "",
-                "company_headquaters_location": "",
+                "company_headquarters_location": "",
                 "country_area_deployed": "",
                 "critical_infrastructure_sector": ""
             }
@@ -309,13 +283,12 @@
             "enabled": true,
             "parameters": [
                 {
-                    "name": "year",
                     "title": "Year",
                     "type": "select",
-                    "editable": true,
-                    "visible": true,
+                    "name": "year",
                     "required": true,
-                    "description": "Specifiy the year to fetch ICS Advisory",
+                    "visible": true,
+                    "editable": true,
                     "options": [
                         "2023",
                         "2022",
@@ -348,40 +321,37 @@
                 "cvss_severity": "",
                 "cvss_score": "",
                 "affected_product": "",
-                "company_headquaters_location": "",
+                "company_headquarters_location": "",
                 "country_area_deployed": "",
                 "critical_infrastructure_sector": ""
             }
         },
         {
-            "operation": "get_ics_medical_advisory_by_product",
-            "title": "Get ICS Medical Advisory By Product",
-            "annotation": "get_ics_medical_advisory_by_product",
-            "description": "Fetches ICS Medical Advisory on the basis of specified product name and version.",
+            "operation": "get_ics_medical_advisory_by_vendor",
+            "title": "Get ICS Medical Advisory By Vendor",
+            "annotation": "get_ics_medical_advisory_by_vendor",
+            "description": "Fetches ICS Medical Advisory on the basis of specified vendor name.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
             "enabled": true,
             "parameters": [
                 {
-                    "name": "product",
-                    "title": "Product",
+                    "title": "Vendor",
                     "type": "text",
-                    "editable": true,
-                    "visible": true,
+                    "name": "vendor",
                     "required": true,
-                    "tooltip": "Specify the product to get ICS Advisory",
-                    "description": "Specify the product to get ICS Advisory"
+                    "visible": true,
+                    "editable": true
                 },
                 {
-                    "name": "version",
-                    "title": "Version",
-                    "type": "text",
-                    "editable": true,
+                    "title": "Similarity Threshold",
+                    "type": "integer",
+                    "name": "similarityThreshold",
+                    "required": true,
                     "visible": true,
-                    "required": false,
-                    "tooltip": "Specify the version of product to get ICS Advisory",
-                    "description": "Specify the version of product to get ICS Advisory"
+                    "editable": true,
+                    "value": 75
                 }
             ],
             "output_schema": {
@@ -398,7 +368,64 @@
                 "cvss_severity": "",
                 "cvss_score": "",
                 "affected_product": "",
-                "company_headquaters_location": "",
+                "company_headquarters_location": "",
+                "country_area_deployed": "",
+                "critical_infrastructure_sector": ""
+            }
+        },
+        {
+            "operation": "get_ics_medical_advisory_by_product",
+            "title": "Get ICS Medical Advisory By Product",
+            "annotation": "get_ics_medical_advisory_by_product",
+            "description": "Fetches ICS Medical Advisory on the basis of specified product name and version.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Product",
+                    "type": "text",
+                    "name": "product",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "tooltip": "Specify the product to get ICS Advisory"
+                },
+                {
+                    "title": "Version",
+                    "type": "text",
+                    "name": "version",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "tooltip": "Specify the version of product to get ICS Advisory"
+                },
+                {
+                    "title": "Similarity Threshold",
+                    "type": "integer",
+                    "name": "similarityThreshold",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "value": 75
+                }
+            ],
+            "output_schema": {
+                "url": "",
+                "name": "",
+                "icsa_code": "",
+                "year": "",
+                "vendor": "",
+                "product": "",
+                "cve_list": [],
+                "cwe_list": [],
+                "release_date": "",
+                "updated_date": "",
+                "cvss_severity": "",
+                "cvss_score": "",
+                "affected_product": "",
+                "company_headquarters_location": "",
                 "country_area_deployed": "",
                 "critical_infrastructure_sector": ""
             }
