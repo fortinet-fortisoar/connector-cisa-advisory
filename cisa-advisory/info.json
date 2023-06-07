@@ -42,8 +42,24 @@
                         "Last Month",
                         "Last 3 Months",
                         "Last 6 Months",
-                        "Last Date Published Advisory"
-                    ]
+                        "Last Date Published Advisory",
+                        "Custom Date"
+                    ],
+                    "onchange": {
+                        "Custom Date": [
+                            {
+                                "name": "selectDate",
+                                "title": "Select Date",
+                                "description": "Specify date to search for Advisory",
+                                "type": "datetime",
+                                "editable": true,
+                                "visible": true,
+                                "required": true,
+                                "value": "",
+                                "tooltip": "Specify date or epoch time"
+                            }
+                        ]
+                    }
                 }
             ],
             "output_schema": {
@@ -249,8 +265,24 @@
                         "Last Month",
                         "Last 3 Months",
                         "Last 6 Months",
-                        "Last Date Published Advisory"
-                    ]
+                        "Last Date Published Advisory",
+                        "Custom Date"
+                    ],
+                    "onchange": {
+                        "Custom Date": [
+                            {
+                                "name": "selectDate",
+                                "title": "Select Date",
+                                "description": "Specify date to search for Advisory",
+                                "type": "datetime",
+                                "editable": true,
+                                "visible": true,
+                                "required": true,
+                                "value": "",
+                                "tooltip": "Specify date or epoch time"
+                            }
+                        ]
+                    }
                 }
             ],
             "output_schema": {
