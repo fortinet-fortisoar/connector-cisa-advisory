@@ -43,10 +43,6 @@ class Advisory():
     def date_filter_advisory(self, params, ics_data):
         try:
             today_date = datetime.date.today()
-            if params['date_filter'] == 'Today':
-                filter_ics_advisory_data = [ics for ics in ics_data if ics.get(
-                    'release_date') == str(today_date)]
-                return filter_ics_advisory_data
             if params['date_filter'] == 'Last 7 Days':
                 filter_date = today_date + relativedelta(days=-7)
                 return self.get_advisory_by_date(today_date, filter_date, ics_data)

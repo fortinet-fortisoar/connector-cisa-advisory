@@ -34,7 +34,6 @@
                     "required": false,
                     "description": "Specify the date filter.",
                     "options": [
-                        "Today",
                         "Last 7 Days",
                         "Last 30 Days",
                         "This Month",
@@ -257,7 +256,6 @@
                     "visible": true,
                     "editable": true,
                     "options": [
-                        "Today",
                         "Last 7 Days",
                         "Last 30 Days",
                         "This Month",
