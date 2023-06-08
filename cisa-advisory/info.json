@@ -34,7 +34,6 @@
                     "required": false,
                     "description": "Specify the date filter.",
                     "options": [
-                        "Today",
                         "Last 7 Days",
                         "Last 30 Days",
                         "This Month",
@@ -42,8 +41,24 @@
                         "Last Month",
                         "Last 3 Months",
                         "Last 6 Months",
-                        "Last Date Published Advisory"
-                    ]
+                        "Last Date Published Advisory",
+                        "Custom Date"
+                    ],
+                    "onchange": {
+                        "Custom Date": [
+                            {
+                                "name": "selectDate",
+                                "title": "Select Date",
+                                "description": "Fetches all the advisory by given date.",
+                                "type": "datetime",
+                                "editable": true,
+                                "visible": true,
+                                "required": true,
+                                "value": "",
+                                "tooltip": "Specify the release date or epoch time of advisory."
+                            }
+                        ]
+                    }
                 }
             ],
             "output_schema": {
@@ -241,7 +256,6 @@
                     "visible": true,
                     "editable": true,
                     "options": [
-                        "Today",
                         "Last 7 Days",
                         "Last 30 Days",
                         "This Month",
@@ -249,8 +263,24 @@
                         "Last Month",
                         "Last 3 Months",
                         "Last 6 Months",
-                        "Last Date Published Advisory"
-                    ]
+                        "Last Date Published Advisory",
+                        "Custom Date"
+                    ],
+                    "onchange": {
+                        "Custom Date": [
+                            {
+                                "name": "selectDate",
+                                "title": "Select Date",
+                                "description": "Fetches all the advisory by given date.",
+                                "type": "datetime",
+                                "editable": true,
+                                "visible": true,
+                                "required": true,
+                                "value": "",
+                                "tooltip": "Specify the release date or epoch time of advisory."
+                            }
+                        ]
+                    }
                 }
             ],
             "output_schema": {

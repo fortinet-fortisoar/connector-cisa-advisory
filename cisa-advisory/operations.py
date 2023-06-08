@@ -24,7 +24,7 @@ class Advisory():
             ics_advisory_url_by_year_links_list = []
             output = []
             url = REPO_URL + advisory_type + '/'
-            response = requests.get(url, verify=False)
+            response = requests.get(url, verify=True)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
                 if advisory_type in link.get('href'):
@@ -32,7 +32,7 @@ class Advisory():
                         link.get('href'))
             for advisory_link in ics_advisory_url_by_year_links_list:
                 json_file_data = requests.get(
-                    url + advisory_link, verify=False)
+                    url + advisory_link, verify=True)
                 for item in json.loads(json_file_data.text):
                     output.append(item)
             return output
@@ -43,10 +43,6 @@ class Advisory():
     def date_filter_advisory(self, params, ics_data):
         try:
             today_date = datetime.date.today()
-            if params['date_filter'] == 'Today':
-                filter_ics_advisory_data = [ics for ics in ics_data if ics.get(
-                    'release_date') == str(today_date)]
-                return filter_ics_advisory_data
             if params['date_filter'] == 'Last 7 Days':
                 filter_date = today_date + relativedelta(days=-7)
                 return self.get_advisory_by_date(today_date, filter_date, ics_data)
@@ -84,6 +80,20 @@ class Advisory():
                         return filter_ics_advisory
                     else:
                         today_date += delta
+            if params['date_filter'] == 'Custom Date':
+                pattern = r'^\d{4}-\d{2}-\d{2}T'
+                if isinstance(params['selectDate'], int):
+                    date_time = datetime.datetime.fromtimestamp(
+                        params['selectDate']).strftime("%Y-%m-%d")
+                    filter_data = [ics for ics in ics_data if ics.get(
+                        'release_date') == date_time]
+                    return filter_data
+                elif re.match(pattern, params['selectDate']):
+                    date_time = datetime.datetime.strptime(
+                        params['selectDate'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
+                    filter_data = [ics for ics in ics_data if ics.get(
+                        'release_date') == date_time]
+                    return filter_data
         except Exception as err:
             logger.exception(str(err))
             raise ConnectorError(err)
