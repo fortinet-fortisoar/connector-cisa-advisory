@@ -50,13 +50,13 @@
                             {
                                 "name": "selectDate",
                                 "title": "Select Date",
-                                "description": "Specify date to search for Advisory",
+                                "description": "Fetches all the advisory by given date.",
                                 "type": "datetime",
                                 "editable": true,
                                 "visible": true,
                                 "required": true,
                                 "value": "",
-                                "tooltip": "Specify date or epoch time"
+                                "tooltip": "Specify the release date or epoch time of advisory."
                             }
                         ]
                     }
@@ -273,13 +273,13 @@
                             {
                                 "name": "selectDate",
                                 "title": "Select Date",
-                                "description": "Specify date to search for Advisory",
+                                "description": "Fetches all the advisory by given date.",
                                 "type": "datetime",
                                 "editable": true,
                                 "visible": true,
                                 "required": true,
                                 "value": "",
-                                "tooltip": "Specify date or epoch time"
+                                "tooltip": "Specify the release date or epoch time of advisory."
                             }
                         ]
                     }
