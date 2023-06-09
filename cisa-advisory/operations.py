@@ -217,69 +217,6 @@ def get_advisory_by_product(config, params):
         logger.exception(str(err))
         raise ConnectorError(err)
 
-
-def get_ics_medical_advisory(config, params):
-    try:
-        advisory_obj = Advisory()
-        ics_data = advisory_obj.get_ics_data('ics-medical-advisory')
-        if params['date_filter']:
-            return advisory_obj.date_filter_advisory(params, ics_data)
-        else:
-            return ics_data
-    except Exception as err:
-        logger.exception(str(err))
-        raise ConnectorError(err)
-
-
-def get_ics_medical_advisory_by_year(config, params):
-    try:
-        ics_advisory_url_by_year = REPO_URL + 'ics-medical-advisory/' + \
-            str(params['year']) + '-ics-medical-advisory.json'
-        json_file_data = requests.get(ics_advisory_url_by_year, verify=False)
-        return json.loads(json_file_data.text)
-    except Exception as err:
-        logger.exception(str(err))
-        raise ConnectorError(err)
-
-
-def get_ics_medical_advisory_by_vendor(config, params):
-    try:
-        output = []
-        advisory_obj = Advisory()
-        ics_advisory_data = advisory_obj.get_ics_data('ics-medical-advisory')
-        for advisory in ics_advisory_data:
-            ratio = advisory_obj.set_ratio(
-                str(params['vendor'].strip()), advisory['vendor'])
-            if ratio >= params['similarityThreshold']:
-                output.append(advisory)
-        return output
-    except Exception as err:
-        logger.exception(str(err))
-        raise ConnectorError(err)
-
-
-def get_ics_medical_advisory_by_product(config, params):
-    try:
-        output = []
-        advisory_obj = Advisory()
-        ics_advisory_data = advisory_obj.get_ics_data('ics-medical-advisory')
-        for advisory in ics_advisory_data:
-            ratio = advisory_obj.set_ratio(
-                str(params['product'].strip()), advisory['product'])
-            if ratio >= params['similarityThreshold']:
-                if params['version'].strip() != "":
-                    if params['version'].strip() in advisory['affected_product']:
-                        output.append(advisory)
-                    else:
-                        continue
-                else:
-                    output.append(advisory)
-        return output
-    except Exception as err:
-        logger.exception(str(err))
-        raise ConnectorError(err)
-
-
 operations = {
     "get_advisory": get_advisory,
     "get_advisory_by_year": get_advisory_by_year,
