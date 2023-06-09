@@ -17,14 +17,29 @@ class Advisory():
 
     def __init__(self, advisory_type):
         self.advisory_type = advisory_type
-        self.repo_url = os.environ.get('product_yum_server')
+        self.yum_repo_url = os.environ.get(
+            'product_yum_server') + '/connectors/data-point/cisa-advisory/'
+        if self.yum_repo_url.startswith('https://'):
+            self.verify = True
+        elif self.yum_repo_url.startswith('http://'):
+            self.verify = False
+        else:
+            self.set_yum_repo_url()
+
+    def set_yum_repo_url(self):
+        self.yum_repo_url = 'http://{0}'.format(self.yum_repo_url)
+        response = requests.get(self.yum_repo_url, verify=False)
+        self.verify = False
+        if response.status_code != 200:
+            self.yum_repo_url = 'https://{0}'.format(self.yum_repo_url)
+            self.verify = True
 
     def get_ics_data(self):
         try:
             ics_advisory_url_by_year_links_list = []
             output = []
-            url = self.repo_url + self.advisory_type + '/'
-            response = requests.get(url, verify=False)
+            url = self.yum_repo_url + self.advisory_type + '/'
+            response = requests.get(url, verify=self.verify)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
                 if self.advisory_type in link.get('href'):
@@ -32,20 +47,22 @@ class Advisory():
                         link.get('href'))
             for advisory_link in ics_advisory_url_by_year_links_list:
                 json_file_data = requests.get(
-                    url + advisory_link, verify=False)
+                    url + advisory_link, verify=self.verify)
                 for item in json.loads(json_file_data.text):
                     output.append(item)
             return output
         except Exception as err:
             logger.exception(str(err))
             raise ConnectorError(err)
-    
+
     def get_ics_data_by_year(self, params):
-        ics_advisory_url_by_year = self.repo_url + self.advisory_type + '/' + \
+        ics_advisory_url_by_year = self.yum_repo_url + self.advisory_type + '/' + \
             str(params['year']) + '-' + self.advisory_type + '.json'
-        json_file_data = requests.get(ics_advisory_url_by_year, verify=False)
+        json_file_data = requests.get(
+            ics_advisory_url_by_year, verify=self.verify)
         output = json.loads(json_file_data.text)
-        
+        return output
+
     def date_filter_advisory(self, params, ics_data):
         try:
             today_date = datetime.date.today()
@@ -219,6 +236,7 @@ def get_advisory_by_product(config, params):
     except Exception as err:
         logger.exception(str(err))
         raise ConnectorError(err)
+
 
 operations = {
     "get_advisory": get_advisory,
