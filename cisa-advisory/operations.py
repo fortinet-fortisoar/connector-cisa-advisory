@@ -19,20 +19,20 @@ class Advisory():
         self.advisory_type = advisory_type
         self.yum_repo_url = os.environ.get(
             'product_yum_server') + '/connectors/data-point/cisa-advisory/'
+        self.set_yum_repo_url()
+        
+    def set_yum_repo_url(self):
         if self.yum_repo_url.startswith('https://'):
             self.verify = True
         elif self.yum_repo_url.startswith('http://'):
             self.verify = False
         else:
-            self.set_yum_repo_url()
-
-    def set_yum_repo_url(self):
-        self.yum_repo_url = 'http://{0}'.format(self.yum_repo_url)
-        response = requests.get(self.yum_repo_url, verify=False)
-        self.verify = False
-        if response.status_code != 200:
-            self.yum_repo_url = 'https://{0}'.format(self.yum_repo_url)
-            self.verify = True
+            self.yum_repo_url = 'http://{0}'.format(self.yum_repo_url)
+            response = requests.get(self.yum_repo_url, verify=False)
+            self.verify = False
+            if response.status_code != 200:
+                self.yum_repo_url = 'https://{0}'.format(self.yum_repo_url)
+                self.verify = True
 
     def get_ics_data(self):
         try:
