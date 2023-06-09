@@ -1,5 +1,5 @@
 from connectors.core.connector import Connector, get_logger, ConnectorError
-from .operations import operations, check_health
+from .operations import operations
 
 logger = get_logger("cisa-advisory")
 class Advisory(Connector):
@@ -15,9 +15,3 @@ class Advisory(Connector):
         except Exception as err:
             logger.exception(err)
             raise ConnectorError(err)
-
-    def check_health(self, config):
-        try:
-            return check_health(config)
-        except Exception as e:
-            raise ConnectorError(str(e))

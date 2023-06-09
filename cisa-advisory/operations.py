@@ -16,23 +16,23 @@ logger = get_logger('cisa-advisory')
 
 class Advisory():
 
-    def __init__(self):
-        pass
+    def __init__(self, advisory_type):
+        self.advisory_type = advisory_type
 
-    def get_ics_data(self, advisory_type):
+    def get_ics_data(self):
         try:
             ics_advisory_url_by_year_links_list = []
             output = []
-            url = REPO_URL + advisory_type + '/'
-            response = requests.get(url, verify=True)
+            url = REPO_URL + self.advisory_type + '/'
+            response = requests.get(url, verify=False)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
-                if advisory_type in link.get('href'):
+                if self.advisory_type in link.get('href'):
                     ics_advisory_url_by_year_links_list.append(
                         link.get('href'))
             for advisory_link in ics_advisory_url_by_year_links_list:
                 json_file_data = requests.get(
-                    url + advisory_link, verify=True)
+                    url + advisory_link, verify=False)
                 for item in json.loads(json_file_data.text):
                     output.append(item)
             return output
@@ -141,51 +141,66 @@ class Advisory():
             raise Exception(err)
 
 
-def get_ics_advisory(config, params):
+def get_advisory(config, params):
     try:
-        advisory_obj = Advisory()
-        ics_data = advisory_obj.get_ics_data('ics-advisory')
+        if params['advisory_type'] == 'ICS Advisory':
+            advisory_obj = Advisory('ics-advisory')
+        elif params['advisory_type'] == 'ICS Medical Advisory':
+            advisory_obj = Advisory('ics-medical-advisory')
+        ics_data = advisory_obj.get_ics_data()
         if params['date_filter']:
-            return advisory_obj.date_filter_advisory(params, ics_data)
+            output = advisory_obj.date_filter_advisory(params, ics_data)
+            return sorted(output, key=lambda k: k['release_date'], reverse=True)
         else:
-            return ics_data
+            return sorted(ics_data, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
         logger.exception(str(err))
         raise Exception(err)
 
 
-def get_ics_advisory_by_year(config, params):
+def get_advisory_by_year(config, params):
     try:
-        ics_advisory_url_by_year = REPO_URL + 'ics-advisory/' + \
-            str(params['year']) + '-ics-advisory.json'
+        if params['advisory_type'] == 'ICS Advisory':
+            advisory_type = 'ics-advisory'
+        elif params['advisory_type'] == 'ICS Medical Advisory':
+            advisory_type = 'ics-medical-advisory'
+        ics_advisory_url_by_year = REPO_URL + advisory_type + '/' + \
+            str(params['year']) + '-' + advisory_type + '.json'
         json_file_data = requests.get(ics_advisory_url_by_year, verify=False)
-        return json.loads(json_file_data.text)
+        output = json.loads(json_file_data.text)
+        return sorted(output, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
         logger.exception(str(err))
         raise ConnectorError(err)
 
 
-def get_ics_advisory_by_vendor(config, params):
+def get_advisory_by_vendor(config, params):
     try:
         output = []
-        advisory_obj = Advisory()
-        ics_advisory_data = advisory_obj.get_ics_data('ics-advisory')
-        for advisory in ics_advisory_data:
+        if params['advisory_type'] == 'ICS Advisory':
+            advisory_obj = Advisory('ics-advisory')
+        elif params['advisory_type'] == 'ICS Medical Advisory':
+            advisory_obj = Advisory('ics-medical-advisory')
+        advisory_data = advisory_obj.get_ics_data()
+        for advisory in advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['vendor'].strip()), advisory['vendor'])
             if ratio >= params['similarityThreshold']:
                 output.append(advisory)
-        return output
+        return sorted(output, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
         logger.exception(str(err))
         raise ConnectorError(err)
 
 
-def get_ics_advisory_by_product(config, params):
+def get_advisory_by_product(config, params):
     try:
         output = []
-        advisory_obj = Advisory()
-        ics_advisory_data = advisory_obj.get_ics_data('ics-advisory')
+        if params['advisory_type'] == 'ICS Advisory':
+            advisory_obj = Advisory('ics-advisory')
+        elif params['advisory_type'] == 'ICS Medical Advisory':
+            advisory_obj = Advisory('ics-medical-advisory')
+        ics_advisory_data = advisory_obj.get_ics_data()
         for advisory in ics_advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['product'].strip()), advisory['product'])
@@ -197,7 +212,7 @@ def get_ics_advisory_by_product(config, params):
                         continue
                 else:
                     output.append(advisory)
-        return output
+        return sorted(output, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
         logger.exception(str(err))
         raise ConnectorError(err)
@@ -265,24 +280,9 @@ def get_ics_medical_advisory_by_product(config, params):
         raise ConnectorError(err)
 
 
-def check_health(config):
-    module_name = 'i_c_s_advisories'
-    try:
-        make_request('/api/3/{}'.format(module_name), 'GET')
-        return True
-    except Exception as err:
-        logger.exception(str(err))
-        raise ConnectorError(
-            "ICS Advisory modules is not present in environment")
-
-
 operations = {
-    "get_ics_advisory": get_ics_advisory,
-    "get_ics_advisory_by_vendor": get_ics_advisory_by_vendor,
-    "get_ics_advisory_by_year": get_ics_advisory_by_year,
-    "get_ics_advisory_by_product": get_ics_advisory_by_product,
-    "get_ics_medical_advisory": get_ics_medical_advisory,
-    "get_ics_medical_advisory_by_vendor": get_ics_medical_advisory_by_vendor,
-    "get_ics_medical_advisory_by_year": get_ics_medical_advisory_by_year,
-    "get_ics_medical_advisory_by_product": get_ics_medical_advisory_by_product
+    "get_advisory": get_advisory,
+    "get_advisory_by_year": get_advisory_by_year,
+    "get_advisory_by_vendor": get_advisory_by_vendor,
+    "get_advisory_by_product": get_advisory_by_product
 }
