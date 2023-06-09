@@ -19,27 +19,21 @@ class Advisory():
         self.advisory_type = advisory_type
         self.yum_repo_url = os.environ.get(
             'product_yum_server') + '/connectors/data-point/cisa-advisory/'
-        self.set_yum_repo_url()
-        
+        if not self.yum_repo_url.startswith('https://') and not self.yum_repo_url.startswith('http://'):
+            self.set_yum_repo_url()
+
     def set_yum_repo_url(self):
-        if self.yum_repo_url.startswith('https://'):
-            self.verify = True
-        elif self.yum_repo_url.startswith('http://'):
-            self.verify = False
-        else:
-            self.yum_repo_url = 'http://{0}'.format(self.yum_repo_url)
-            response = requests.get(self.yum_repo_url, verify=False)
-            self.verify = False
-            if response.status_code != 200:
-                self.yum_repo_url = 'https://{0}'.format(self.yum_repo_url)
-                self.verify = True
+        self.yum_repo_url = 'http://{0}'.format(self.yum_repo_url)
+        response = requests.get(self.yum_repo_url)
+        if response.status_code != 200:
+            self.yum_repo_url = 'https://{0}'.format(self.yum_repo_url)
 
     def get_ics_data(self):
         try:
             ics_advisory_url_by_year_links_list = []
             output = []
             url = self.yum_repo_url + self.advisory_type + '/'
-            response = requests.get(url, verify=self.verify)
+            response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
                 if self.advisory_type in link.get('href'):
@@ -47,7 +41,7 @@ class Advisory():
                         link.get('href'))
             for advisory_link in ics_advisory_url_by_year_links_list:
                 json_file_data = requests.get(
-                    url + advisory_link, verify=self.verify)
+                    url + advisory_link)
                 for item in json.loads(json_file_data.text):
                     output.append(item)
             return output
@@ -59,7 +53,7 @@ class Advisory():
         ics_advisory_url_by_year = self.yum_repo_url + self.advisory_type + '/' + \
             str(params['year']) + '-' + self.advisory_type + '.json'
         json_file_data = requests.get(
-            ics_advisory_url_by_year, verify=self.verify)
+            ics_advisory_url_by_year)
         output = json.loads(json_file_data.text)
         return output
 
