@@ -20,9 +20,9 @@ class Advisory():
         self.yum_repo_url = os.environ.get(
             'product_yum_server') + '/connectors/data-point/cisa-advisory/'
         if not self.yum_repo_url.startswith('https://') and not self.yum_repo_url.startswith('http://'):
-            self.set_yum_repo_url()
+            self.set_protocol()
 
-    def set_yum_repo_url(self):
+    def set_protocol(self):
         self.yum_repo_url = 'http://{0}'.format(self.yum_repo_url)
         response = requests.get(self.yum_repo_url)
         if response.status_code != 200:
@@ -111,6 +111,9 @@ class Advisory():
                     filter_data = [ics for ics in ics_data if ics.get(
                         'release_date') == date_time]
                     return filter_data
+            else:
+                logger.exception('Date Filter does not support value {0}'.format(params['date_filter']))
+                raise Exception('Date Filter does not support value {0}'.format(params['date_filter']))
         except Exception as err:
             logger.exception(str(err))
             raise ConnectorError(err)
@@ -164,6 +167,9 @@ def get_advisory(config, params):
             advisory_obj = Advisory('ics-advisory')
         elif params['advisory_type'] == 'ICS Medical Advisory':
             advisory_obj = Advisory('ics-medical-advisory')
+        else:
+            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
+            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
         ics_data = advisory_obj.get_ics_data()
         if params['date_filter']:
             output = advisory_obj.date_filter_advisory(params, ics_data)
@@ -181,6 +187,9 @@ def get_advisory_by_year(config, params):
             advisory_obj = Advisory('ics-advisory')
         elif params['advisory_type'] == 'ICS Medical Advisory':
             advisory_obj = Advisory('ics-medical-advisory')
+        else:
+            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
+            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
         output = advisory_obj.get_ics_data_by_year(params)
         return sorted(output, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
@@ -195,6 +204,9 @@ def get_advisory_by_vendor(config, params):
             advisory_obj = Advisory('ics-advisory')
         elif params['advisory_type'] == 'ICS Medical Advisory':
             advisory_obj = Advisory('ics-medical-advisory')
+        else:
+            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
+            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
         advisory_data = advisory_obj.get_ics_data()
         for advisory in advisory_data:
             ratio = advisory_obj.set_ratio(
@@ -214,6 +226,9 @@ def get_advisory_by_product(config, params):
             advisory_obj = Advisory('ics-advisory')
         elif params['advisory_type'] == 'ICS Medical Advisory':
             advisory_obj = Advisory('ics-medical-advisory')
+        else:
+            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
+            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
         ics_advisory_data = advisory_obj.get_ics_data()
         for advisory in ics_advisory_data:
             ratio = advisory_obj.set_ratio(
