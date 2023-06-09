@@ -8,8 +8,7 @@ from bs4 import BeautifulSoup
 import datetime
 from dateutil.relativedelta import relativedelta
 from connectors.core.connector import get_logger, ConnectorError
-from .constant import *
-from integrations.crudhub import make_request
+import os
 
 logger = get_logger('cisa-advisory')
 
@@ -18,12 +17,13 @@ class Advisory():
 
     def __init__(self, advisory_type):
         self.advisory_type = advisory_type
+        self.repo_url = os.environ.get('product_yum_server')
 
     def get_ics_data(self):
         try:
             ics_advisory_url_by_year_links_list = []
             output = []
-            url = REPO_URL + self.advisory_type + '/'
+            url = self.repo_url + self.advisory_type + '/'
             response = requests.get(url, verify=False)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
@@ -39,7 +39,13 @@ class Advisory():
         except Exception as err:
             logger.exception(str(err))
             raise ConnectorError(err)
-
+    
+    def get_ics_data_by_year(self, params):
+        ics_advisory_url_by_year = self.repo_url + self.advisory_type + '/' + \
+            str(params['year']) + '-' + self.advisory_type + '.json'
+        json_file_data = requests.get(ics_advisory_url_by_year, verify=False)
+        output = json.loads(json_file_data.text)
+        
     def date_filter_advisory(self, params, ics_data):
         try:
             today_date = datetime.date.today()
@@ -161,13 +167,10 @@ def get_advisory(config, params):
 def get_advisory_by_year(config, params):
     try:
         if params['advisory_type'] == 'ICS Advisory':
-            advisory_type = 'ics-advisory'
+            advisory_obj = Advisory('ics-advisory')
         elif params['advisory_type'] == 'ICS Medical Advisory':
-            advisory_type = 'ics-medical-advisory'
-        ics_advisory_url_by_year = REPO_URL + advisory_type + '/' + \
-            str(params['year']) + '-' + advisory_type + '.json'
-        json_file_data = requests.get(ics_advisory_url_by_year, verify=False)
-        output = json.loads(json_file_data.text)
+            advisory_obj = Advisory('ics-medical-advisory')
+        output = advisory_obj.get_ics_data_by_year(params)
         return sorted(output, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
         logger.exception(str(err))
