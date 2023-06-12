@@ -8,35 +8,45 @@ from bs4 import BeautifulSoup
 import datetime
 from dateutil.relativedelta import relativedelta
 from connectors.core.connector import get_logger, ConnectorError
-import os
+from .constant import *
 
 logger = get_logger('cisa-advisory')
 
 
 class Advisory():
 
-    def __init__(self, advisory_type):
-        self.advisory_type = advisory_type
-        self.yum_repo_url = os.environ.get(
-            'product_yum_server') + '/connectors/data-point/cisa-advisory/'
-        if not self.yum_repo_url.startswith('https://') and not self.yum_repo_url.startswith('http://'):
-            self.set_protocol()
+    def __init__(self):
+        pass
 
-    def set_protocol(self):
-        self.yum_repo_url = 'http://{0}'.format(self.yum_repo_url)
-        response = requests.get(self.yum_repo_url)
-        if response.status_code != 200:
-            self.yum_repo_url = 'https://{0}'.format(self.yum_repo_url)
+    def get_status(self, config):
+        if not config['prodYumRepoURL'].startswith('https://') and not config['prodYumRepoURL'].startswith('http://'):
+            yum_repo_url = 'http://{0}'.format(config['prodYumRepoURL'])
+            response = requests.get(yum_repo_url)
+            if response.status_code == 200:
+                return True, yum_repo_url
+            else:
+                yum_repo_url = 'https://{0}'.format(config['prodYumRepoURL'])
+                response = requests.get(yum_repo_url)
+                if response.status_code == 200:
+                    return True, yum_repo_url
+                else:
+                    return False
+        else:
+            response = requests.get(config['prodYumRepoURL'])
+            if response.status_code == 200:
+                return True, config['prodYumRepoURL']
+            else:
+                return False
 
-    def get_ics_data(self):
+    def get_ics_data(self, advisory_type, yum_repo_url):
         try:
             ics_advisory_url_by_year_links_list = []
             output = []
-            url = self.yum_repo_url + self.advisory_type + '/'
+            url = yum_repo_url + '/connectors/data-point/cisa-advisory/' + advisory_type + '/'
             response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
-                if self.advisory_type in link.get('href'):
+                if advisory_type in link.get('href'):
                     ics_advisory_url_by_year_links_list.append(
                         link.get('href'))
             for advisory_link in ics_advisory_url_by_year_links_list:
@@ -49,9 +59,9 @@ class Advisory():
             logger.exception(str(err))
             raise ConnectorError(err)
 
-    def get_ics_data_by_year(self, params):
-        ics_advisory_url_by_year = self.yum_repo_url + self.advisory_type + '/' + \
-            str(params['year']) + '-' + self.advisory_type + '.json'
+    def get_ics_data_by_year(self, params, advisory_type, yum_repo_url):
+        ics_advisory_url_by_year = yum_repo_url + '/connectors/data-point/cisa-advisory/' + advisory_type + '/' + \
+            str(params['year']) + '-' + advisory_type + '.json'
         json_file_data = requests.get(
             ics_advisory_url_by_year)
         output = json.loads(json_file_data.text)
@@ -163,14 +173,10 @@ class Advisory():
 
 def get_advisory(config, params):
     try:
-        if params['advisory_type'] == 'ICS Advisory':
-            advisory_obj = Advisory('ics-advisory')
-        elif params['advisory_type'] == 'ICS Medical Advisory':
-            advisory_obj = Advisory('ics-medical-advisory')
-        else:
-            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
-            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
-        ics_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        yum_repo_url = advisory_obj.get_status(config)[1]
+        advisory_type = ADVISORY_TYPE.get(params['advisory_type'])
+        ics_data = advisory_obj.get_ics_data(advisory_type, yum_repo_url)
         if params['date_filter']:
             output = advisory_obj.date_filter_advisory(params, ics_data)
             return sorted(output, key=lambda k: k['release_date'], reverse=True)
@@ -183,14 +189,10 @@ def get_advisory(config, params):
 
 def get_advisory_by_year(config, params):
     try:
-        if params['advisory_type'] == 'ICS Advisory':
-            advisory_obj = Advisory('ics-advisory')
-        elif params['advisory_type'] == 'ICS Medical Advisory':
-            advisory_obj = Advisory('ics-medical-advisory')
-        else:
-            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
-            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
-        output = advisory_obj.get_ics_data_by_year(params)
+        advisory_obj = Advisory()
+        yum_repo_url = advisory_obj.get_status(config)[1]
+        advisory_type = ADVISORY_TYPE.get(params['advisory_type'])
+        output = advisory_obj.get_ics_data_by_year(params, advisory_type, yum_repo_url)
         return sorted(output, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
         logger.exception(str(err))
@@ -200,14 +202,10 @@ def get_advisory_by_year(config, params):
 def get_advisory_by_vendor(config, params):
     try:
         output = []
-        if params['advisory_type'] == 'ICS Advisory':
-            advisory_obj = Advisory('ics-advisory')
-        elif params['advisory_type'] == 'ICS Medical Advisory':
-            advisory_obj = Advisory('ics-medical-advisory')
-        else:
-            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
-            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
-        advisory_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        yum_repo_url = advisory_obj.get_status(config)[1]
+        advisory_type = ADVISORY_TYPE.get(params['advisory_type'])
+        advisory_data = advisory_obj.get_ics_data(advisory_type, yum_repo_url)
         for advisory in advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['vendor'].strip()), advisory['vendor'])
@@ -222,14 +220,10 @@ def get_advisory_by_vendor(config, params):
 def get_advisory_by_product(config, params):
     try:
         output = []
-        if params['advisory_type'] == 'ICS Advisory':
-            advisory_obj = Advisory('ics-advisory')
-        elif params['advisory_type'] == 'ICS Medical Advisory':
-            advisory_obj = Advisory('ics-medical-advisory')
-        else:
-            logger.exception('Data for {0} is not supported.'.format(params['advisory_type']))
-            raise Exception('Data for {0} is not supported.'.format(params['advisory_type']))
-        ics_advisory_data = advisory_obj.get_ics_data()
+        advisory_obj = Advisory()
+        yum_repo_url = advisory_obj.get_status(config)[1]
+        advisory_type = ADVISORY_TYPE.get(params['advisory_type'])
+        ics_advisory_data = advisory_obj.get_ics_data(advisory_type, yum_repo_url)
         for advisory in ics_advisory_data:
             ratio = advisory_obj.set_ratio(
                 str(params['product'].strip()), advisory['product'])
@@ -246,6 +240,10 @@ def get_advisory_by_product(config, params):
         logger.exception(str(err))
         raise ConnectorError(err)
 
+
+def check_health(config):
+    advisory = Advisory()
+    return advisory.get_status(config)[0]
 
 operations = {
     "get_advisory": get_advisory,
