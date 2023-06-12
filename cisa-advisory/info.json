@@ -6,25 +6,37 @@
     "publisher": "Fortinet",
     "icon_small_name": "samll.png",
     "icon_large_name": "large.png",
-    "configuration": {
-        "fields": []
-    },
+    "configuration": {},
     "category": "Utilities",
     "active": true,
     "cs_compatible": true,
     "help_online": "",
-    "cs_approved": true,
+    "cs_approved": false,
     "operations": [
         {
-            "operation": "get_ics_advisory",
-            "title": "Get ICS Advisory",
-            "annotation": "get_ics_advisory",
-            "description": "Fetches all the ICS Advisory till present date or by provided date filter.",
+            "operation": "get_advisory",
+            "title": "Get Advisory",
+            "annotation": "get_advisory",
+            "description": "Fetches all the Advisories present till date or by provided date filter.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
             "enabled": true,
             "parameters": [
+                {
+                    "name": "advisory_type",
+                    "title": "Advisory Type",
+                    "type": "select",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specify the advisory Type.",
+                    "options": [
+                        "ICS Advisory",
+                        "ICS Medical Advisory"
+                    ],
+                    "tooltip": "Specify the advisory type."
+                },
                 {
                     "name": "date_filter",
                     "title": "Date Filter",
@@ -58,7 +70,8 @@
                                 "tooltip": "Specify the release date or epoch time of advisory."
                             }
                         ]
-                    }
+                    },
+                    "tooltip": "Specify the date filter."
                 }
             ],
             "output_schema": {
@@ -81,203 +94,75 @@
             }
         },
         {
-            "operation": "get_ics_advisory_by_year",
-            "title": "Get ICS Advisory By Year",
-            "annotation": "get_ics_advisory_by_year",
-            "description": "Fetches ICS Advisory on the basis of specified year.",
+            "operation": "get_advisory_by_year",
+            "title": "Get Advisory By Year",
+            "annotation": "get_advisory_by_year",
+            "description": "Fetches Advisories on the basis of specified year.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
             "enabled": true,
             "parameters": [
                 {
-                    "title": "Year",
+                    "name": "advisory_type",
+                    "title": "Advisory Type",
                     "type": "select",
-                    "name": "year",
-                    "required": true,
-                    "visible": true,
                     "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specify the advisory Type.",
                     "options": [
-                        "2023",
-                        "2022",
-                        "2021",
-                        "2020",
-                        "2019",
-                        "2018",
-                        "2017",
-                        "2016",
-                        "2015",
-                        "2014",
-                        "2013",
-                        "2012",
-                        "2011",
-                        "2010"
-                    ]
-                }
-            ],
-            "output_schema": {
-                "url": "",
-                "name": "",
-                "icsa_code": "",
-                "year": "",
-                "vendor": "",
-                "product": "",
-                "cve_list": [],
-                "cwe_list": [],
-                "release_date": "",
-                "updated_date": "",
-                "cvss_severity": "",
-                "cvss_score": "",
-                "affected_product": "",
-                "company_headquarters_location": "",
-                "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
-            }
-        },
-        {
-            "operation": "get_ics_advisory_by_vendor",
-            "title": "Get ICS Advisory By Vendor",
-            "annotation": "get_ics_advisory_by_vendor",
-            "description": "Fetches ICS Advisory on the basis of specified vendor name.",
-            "category": "investigation",
-            "is_config_required": true,
-            "visible": true,
-            "enabled": true,
-            "parameters": [
-                {
-                    "title": "Vendor",
-                    "type": "text",
-                    "name": "vendor",
-                    "required": true,
-                    "visible": true,
-                    "editable": true
-                },
-                {
-                    "title": "Similarity Threshold",
-                    "type": "integer",
-                    "name": "similarityThreshold",
-                    "required": true,
-                    "visible": true,
-                    "editable": true,
-                    "value": 75
-                }
-            ],
-            "output_schema": {
-                "url": "",
-                "name": "",
-                "icsa_code": "",
-                "year": "",
-                "vendor": "",
-                "product": "",
-                "cve_list": [],
-                "cwe_list": [],
-                "release_date": "",
-                "updated_date": "",
-                "cvss_severity": "",
-                "cvss_score": "",
-                "affected_product": "",
-                "company_headquarters_location": "",
-                "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
-            }
-        },
-        {
-            "operation": "get_ics_advisory_by_product",
-            "title": "Get ICS Advisory By Product",
-            "annotation": "get_ics_advisory_by_product",
-            "description": "Fetches ICS Advisory on the basis of specified product name and version.",
-            "category": "investigation",
-            "is_config_required": true,
-            "visible": true,
-            "enabled": true,
-            "parameters": [
-                {
-                    "title": "Product",
-                    "type": "text",
-                    "name": "product",
-                    "required": true,
-                    "visible": true,
-                    "editable": true,
-                    "tooltip": "Specify the product to get ICS Advisory"
-                },
-                {
-                    "title": "Version",
-                    "type": "text",
-                    "name": "version",
-                    "required": false,
-                    "visible": true,
-                    "editable": true,
-                    "tooltip": "Specify the version of product to get ICS Advisory"
-                },
-                {
-                    "title": "Similarity Threshold",
-                    "type": "integer",
-                    "name": "similarityThreshold",
-                    "required": true,
-                    "visible": true,
-                    "editable": true,
-                    "value": 75
-                }
-            ],
-            "output_schema": {
-                "url": "",
-                "name": "",
-                "icsa_code": "",
-                "year": "",
-                "vendor": "",
-                "product": "",
-                "cve_list": [],
-                "cwe_list": [],
-                "release_date": "",
-                "updated_date": "",
-                "cvss_severity": "",
-                "cvss_score": "",
-                "affected_product": "",
-                "company_headquarters_location": "",
-                "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
-            }
-        },
-        {
-            "operation": "get_ics_medical_advisory",
-            "title": "Get ICS Medical Advisory",
-            "annotation": "get_ics_medical_advisory",
-            "description": "Fetches all the ICS Medical Advisory till present date or by provided date filter.",
-            "category": "investigation",
-            "is_config_required": true,
-            "visible": true,
-            "enabled": true,
-            "parameters": [
-                {
-                    "title": "Date Filter",
-                    "type": "select",
-                    "name": "date_filter",
-                    "required": false,
-                    "visible": true,
-                    "editable": true,
-                    "options": [
-                        "Last 7 Days",
-                        "Last 30 Days",
-                        "This Month",
-                        "This Year",
-                        "Last Month",
-                        "Last 3 Months",
-                        "Last 6 Months",
-                        "Last Date Published Advisory",
-                        "Custom Date"
+                        "ICS Advisory",
+                        "ICS Medical Advisory"
                     ],
+                    "tooltip": "Specify the advisory type.",
                     "onchange": {
-                        "Custom Date": [
+                        "ICS Advisory": [
                             {
-                                "name": "selectDate",
-                                "title": "Select Date",
-                                "description": "Fetches all the advisory by given date.",
-                                "type": "datetime",
-                                "editable": true,
-                                "visible": true,
+                                "title": "Year",
+                                "type": "select",
+                                "name": "year",
                                 "required": true,
-                                "value": "",
-                                "tooltip": "Specify the release date or epoch time of advisory."
+                                "visible": true,
+                                "editable": true,
+                                "options": [
+                                    "2023",
+                                    "2022",
+                                    "2021",
+                                    "2020",
+                                    "2019",
+                                    "2018",
+                                    "2017",
+                                    "2016",
+                                    "2015",
+                                    "2014",
+                                    "2013",
+                                    "2012",
+                                    "2011",
+                                    "2010"
+                                ],
+                                "tooltip": "Specify the ICS Advisory Year."
+                            }
+                        ],
+                        "ICS Medical Advisory": [
+                            {
+                                "title": "Year",
+                                "type": "select",
+                                "name": "year",
+                                "required": true,
+                                "visible": true,
+                                "editable": true,
+                                "options": [
+                                    "2023",
+                                    "2022",
+                                    "2021",
+                                    "2020",
+                                    "2019",
+                                    "2018",
+                                    "2017",
+                                    "2016"
+                                ],
+                                "tooltip": "Specify the ICS Medical Advisory Year."
                             }
                         ]
                     }
@@ -303,76 +188,37 @@
             }
         },
         {
-            "operation": "get_ics_medical_advisory_by_year",
-            "title": "Get ICS Medical Advisory By Year",
-            "annotation": "get_ics_medical_advisory_by_year",
-            "description": "Fetches ICS Medical Advisory on the basis of specified year.",
+            "operation": "get_advisory_by_vendor",
+            "title": "Get Advisory By Vendor",
+            "annotation": "get_advisory_by_vendor",
+            "description": "Fetches ICS Advisories on the basis of specified vendor name.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
             "enabled": true,
             "parameters": [
                 {
-                    "title": "Year",
+                    "name": "advisory_type",
+                    "title": "Advisory Type",
                     "type": "select",
-                    "name": "year",
-                    "required": true,
-                    "visible": true,
                     "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specify the advisory Type.",
                     "options": [
-                        "2023",
-                        "2022",
-                        "2021",
-                        "2020",
-                        "2019",
-                        "2018",
-                        "2017",
-                        "2016",
-                        "2015",
-                        "2014",
-                        "2013",
-                        "2012",
-                        "2011",
-                        "2010"
-                    ]
-                }
-            ],
-            "output_schema": {
-                "url": "",
-                "name": "",
-                "icsa_code": "",
-                "year": "",
-                "vendor": "",
-                "product": "",
-                "cve_list": [],
-                "cwe_list": [],
-                "release_date": "",
-                "updated_date": "",
-                "cvss_severity": "",
-                "cvss_score": "",
-                "affected_product": "",
-                "company_headquarters_location": "",
-                "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
-            }
-        },
-        {
-            "operation": "get_ics_medical_advisory_by_vendor",
-            "title": "Get ICS Medical Advisory By Vendor",
-            "annotation": "get_ics_medical_advisory_by_vendor",
-            "description": "Fetches ICS Medical Advisory on the basis of specified vendor name.",
-            "category": "investigation",
-            "is_config_required": true,
-            "visible": true,
-            "enabled": true,
-            "parameters": [
+                        "ICS Advisory",
+                        "ICS Medical Advisory"
+                    ],
+                    "tooltip": "Specify the advisory type."
+                },
                 {
                     "title": "Vendor",
                     "type": "text",
                     "name": "vendor",
                     "required": true,
                     "visible": true,
-                    "editable": true
+                    "editable": true,
+                    "tooltip": "Specify the vendor to get Advisory"
                 },
                 {
                     "title": "Similarity Threshold",
@@ -381,7 +227,8 @@
                     "required": true,
                     "visible": true,
                     "editable": true,
-                    "value": 75
+                    "value": 75,
+                    "tooltip": "Specify Similarity Threshold to check match percentage."
                 }
             ],
             "output_schema": {
@@ -404,15 +251,29 @@
             }
         },
         {
-            "operation": "get_ics_medical_advisory_by_product",
-            "title": "Get ICS Medical Advisory By Product",
-            "annotation": "get_ics_medical_advisory_by_product",
-            "description": "Fetches ICS Medical Advisory on the basis of specified product name and version.",
+            "operation": "get_advisory_by_product",
+            "title": "Get Advisory By Product",
+            "annotation": "get_advisory_by_product",
+            "description": "Fetches Advisories on the basis of specified product name and version.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
             "enabled": true,
             "parameters": [
+                {
+                    "name": "advisory_type",
+                    "title": "Advisory Type",
+                    "type": "select",
+                    "editable": true,
+                    "visible": true,
+                    "required": true,
+                    "description": "Specify the advisory type.",
+                    "options": [
+                        "ICS Advisory",
+                        "ICS Medical Advisory"
+                    ],
+                    "tooltip": "Specify the advisory type."
+                },
                 {
                     "title": "Product",
                     "type": "text",
@@ -420,7 +281,7 @@
                     "required": true,
                     "visible": true,
                     "editable": true,
-                    "tooltip": "Specify the product to get ICS Advisory"
+                    "tooltip": "Specify the product to get Advisory"
                 },
                 {
                     "title": "Version",
@@ -429,7 +290,7 @@
                     "required": false,
                     "visible": true,
                     "editable": true,
-                    "tooltip": "Specify the version of product to get ICS Advisory"
+                    "tooltip": "Specify the version of product to get Advisory"
                 },
                 {
                     "title": "Similarity Threshold",
@@ -438,7 +299,8 @@
                     "required": true,
                     "visible": true,
                     "editable": true,
-                    "value": 75
+                    "value": 75,
+                    "tooltip": "Specify Similarity Threshold to check match percentage."
                 }
             ],
             "output_schema": {
