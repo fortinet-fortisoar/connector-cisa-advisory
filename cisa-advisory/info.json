@@ -16,7 +16,7 @@
                 "type": "text",
                 "value": "repo.fortisoar.fortinet.com",
                 "visible": true,
-                "description": "Contains the prod yum repo url where data is hosted."
+                "description": "Contains the prod yum repo url where cisa-advisory data is hosted."
             }
         ]
     },

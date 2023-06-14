@@ -42,7 +42,7 @@ class Advisory():
         try:
             ics_advisory_url_by_year_links_list = []
             output = []
-            url = yum_repo_url + '/connectors/data-point/cisa-advisory/' + advisory_type + '/'
+            url = yum_repo_url + FOLDER_PATH + advisory_type + '/'
             response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             for link in soup.find_all('a'):
@@ -60,7 +60,7 @@ class Advisory():
             raise ConnectorError(err)
 
     def get_ics_data_by_year(self, params, advisory_type, yum_repo_url):
-        ics_advisory_url_by_year = yum_repo_url + '/connectors/data-point/cisa-advisory/' + advisory_type + '/' + \
+        ics_advisory_url_by_year = yum_repo_url + FOLDER_PATH + advisory_type + '/' + \
             str(params['year']) + '-' + advisory_type + '.json'
         json_file_data = requests.get(
             ics_advisory_url_by_year)
