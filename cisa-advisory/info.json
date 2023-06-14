@@ -6,7 +6,20 @@
     "publisher": "Fortinet",
     "icon_small_name": "samll.png",
     "icon_large_name": "large.png",
-    "configuration": {},
+    "configuration": {
+        "fields": [
+            {
+                "editable": true,
+                "name": "prodYumRepoURL",
+                "required": true,
+                "title": "Prod Yum Repo URL",
+                "type": "text",
+                "value": "repo.fortisoar.fortinet.com",
+                "visible": true,
+                "description": "Contains the prod yum repo url where cisa-advisory data is hosted."
+            }
+        ]
+    },
     "category": "Utilities",
     "active": true,
     "cs_compatible": true,
