@@ -20,12 +20,12 @@ class Advisory():
 
     def get_status(self, config):
         if not config['prodYumRepoURL'].startswith('https://') and not config['prodYumRepoURL'].startswith('http://'):
-            yum_repo_url = 'http://{0}'.format(config['prodYumRepoURL'])
+            yum_repo_url = 'https://{0}'.format(config['prodYumRepoURL'])
             response = requests.get(yum_repo_url)
             if response.status_code == 200:
                 return True, yum_repo_url
             else:
-                yum_repo_url = 'https://{0}'.format(config['prodYumRepoURL'])
+                yum_repo_url = 'http://{0}'.format(config['prodYumRepoURL'])
                 response = requests.get(yum_repo_url)
                 if response.status_code == 200:
                     return True, yum_repo_url
