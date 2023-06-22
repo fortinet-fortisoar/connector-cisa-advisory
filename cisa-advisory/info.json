@@ -16,21 +16,21 @@
                 "type": "text",
                 "value": "repo.fortisoar.fortinet.com",
                 "visible": true,
-                "description": "Contains the prod yum repo url where cisa-advisory data is hosted."
+                "description": "Specify the URL of the production repository that hosts the CISA Advisory Data."
             }
         ]
     },
     "category": "Utilities",
     "active": true,
     "cs_compatible": true,
-    "help_online": "",
+    "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/cisa-advisory/614/cisa-advisory-v1-0-0",
     "cs_approved": false,
     "operations": [
         {
             "operation": "get_advisory",
             "title": "Get Advisory",
             "annotation": "get_advisory",
-            "description": "Fetches all the Advisories present till date or by provided date filter.",
+            "description": "Fetches all the advisories published by CISA up to the current date and time, or alternatively, the date and time you specify, based on the selected advisory type.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
@@ -43,12 +43,12 @@
                     "editable": true,
                     "visible": true,
                     "required": true,
-                    "description": "Specify the advisory Type.",
+                    "description": "Select the type of advisory that you want to fetch from CISA.",
                     "options": [
                         "ICS Advisory",
                         "ICS Medical Advisory"
                     ],
-                    "tooltip": "Specify the advisory type."
+                    "tooltip": "Select the type of advisory that you want to fetch from CISA."
                 },
                 {
                     "name": "date_filter",
@@ -57,7 +57,7 @@
                     "editable": true,
                     "visible": true,
                     "required": false,
-                    "description": "Specify the date filter.",
+                    "description": "Select the date and time till when you want to fetch advisories from CISA.",
                     "options": [
                         "Last 7 Days",
                         "Last 30 Days",
@@ -84,7 +84,7 @@
                             }
                         ]
                     },
-                    "tooltip": "Specify the date filter."
+                    "tooltip": "Select the date and time till when you want to fetch advisories from CISA."
                 }
             ],
             "output_schema": {
@@ -103,14 +103,15 @@
                 "affected_product": "",
                 "company_headquarters_location": "",
                 "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
+                "critical_infrastructure_sector": "",
+                "tag_list": []
             }
         },
         {
             "operation": "get_advisory_by_year",
             "title": "Get Advisory By Year",
             "annotation": "get_advisory_by_year",
-            "description": "Fetches Advisories on the basis of specified year.",
+            "description": "Fetches all the advisories published by CISA based on the specified year and selected advisory type.",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
@@ -123,12 +124,12 @@
                     "editable": true,
                     "visible": true,
                     "required": true,
-                    "description": "Specify the advisory Type.",
+                    "description": "Select the type of advisory that you want to fetch from CISA.",
                     "options": [
                         "ICS Advisory",
                         "ICS Medical Advisory"
                     ],
-                    "tooltip": "Specify the advisory type.",
+                    "tooltip": "Select the type of advisory that you want to fetch from CISA.",
                     "onchange": {
                         "ICS Advisory": [
                             {
@@ -154,7 +155,7 @@
                                     "2011",
                                     "2010"
                                 ],
-                                "tooltip": "Specify the ICS Advisory Year."
+                                "tooltip": "Select the year for which you want to fetch the advisories from CISA."
                             }
                         ],
                         "ICS Medical Advisory": [
@@ -175,7 +176,7 @@
                                     "2017",
                                     "2016"
                                 ],
-                                "tooltip": "Specify the ICS Medical Advisory Year."
+                                "tooltip": "Select the year for which you want to fetch the advisories from CISA."
                             }
                         ]
                     }
@@ -197,14 +198,15 @@
                 "affected_product": "",
                 "company_headquarters_location": "",
                 "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
+                "critical_infrastructure_sector": "",
+                "tag_list": []
             }
         },
         {
             "operation": "get_advisory_by_vendor",
             "title": "Get Advisory By Vendor",
             "annotation": "get_advisory_by_vendor",
-            "description": "Fetches ICS Advisories on the basis of specified vendor name.",
+            "description": "Fetches all the advisories published by CISA based on the specified vendor and selected advisory type. ",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
@@ -217,12 +219,12 @@
                     "editable": true,
                     "visible": true,
                     "required": true,
-                    "description": "Specify the advisory Type.",
+                    "description": "Select the type of advisory that you want to fetch from CISA. ",
                     "options": [
                         "ICS Advisory",
                         "ICS Medical Advisory"
                     ],
-                    "tooltip": "Specify the advisory type."
+                    "tooltip": "Select the type of advisory that you want to fetch from CISA. "
                 },
                 {
                     "title": "Vendor",
@@ -231,7 +233,7 @@
                     "required": true,
                     "visible": true,
                     "editable": true,
-                    "tooltip": "Specify the vendor to get Advisory"
+                    "tooltip": "Specify the vendor whose associated advisory you want to fetch from CISA."
                 },
                 {
                     "title": "Similarity Threshold",
@@ -241,7 +243,7 @@
                     "visible": true,
                     "editable": true,
                     "value": 75,
-                    "tooltip": "Specify Similarity Threshold to check match percentage."
+                    "tooltip": "Specify the similarity threshold (percentage) that will be used to compare vendors with the specified vendor when retrieving the advisories from CISA."
                 }
             ],
             "output_schema": {
@@ -260,14 +262,15 @@
                 "affected_product": "",
                 "company_headquarters_location": "",
                 "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
+                "critical_infrastructure_sector": "",
+                "tag_list": []
             }
         },
         {
             "operation": "get_advisory_by_product",
             "title": "Get Advisory By Product",
             "annotation": "get_advisory_by_product",
-            "description": "Fetches Advisories on the basis of specified product name and version.",
+            "description": "Fetches all the advisories published by CISA based on the specified vendor, its product, its version, and selected advisory type. ",
             "category": "investigation",
             "is_config_required": true,
             "visible": true,
@@ -280,12 +283,21 @@
                     "editable": true,
                     "visible": true,
                     "required": true,
-                    "description": "Specify the advisory type.",
+                    "description": "Select the type of advisory that you want to fetch from CISA.",
                     "options": [
                         "ICS Advisory",
                         "ICS Medical Advisory"
                     ],
-                    "tooltip": "Specify the advisory type."
+                    "tooltip": "Select the type of advisory that you want to fetch from CISA."
+                },
+                {
+                    "title": "Vendor",
+                    "type": "text",
+                    "name": "vendor",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "tooltip": "Specify the vendor whose associated advisory you want to fetch from CISA."
                 },
                 {
                     "title": "Product",
@@ -294,7 +306,7 @@
                     "required": true,
                     "visible": true,
                     "editable": true,
-                    "tooltip": "Specify the product to get Advisory"
+                    "tooltip": "Specify the product whose associated advisory you want to fetch from CISA."
                 },
                 {
                     "title": "Version",
@@ -303,17 +315,27 @@
                     "required": false,
                     "visible": true,
                     "editable": true,
-                    "tooltip": "Specify the version of product to get Advisory"
+                    "tooltip": "Specify the version of the specified product whose associated advisory you want to fetch from CISA."
                 },
                 {
-                    "title": "Similarity Threshold",
+                    "title": "Vendor Similarity Threshold",
                     "type": "integer",
-                    "name": "similarityThreshold",
+                    "name": "vendorSimilarityThreshold",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "value": 75,
-                    "tooltip": "Specify Similarity Threshold to check match percentage."
+                    "tooltip": "Specify the similarity threshold (percentage) that will be used to compare vendors with the specified vendor when retrieving the advisories from CISA."
+                },
+                {
+                    "title": "Product Similarity Threshold",
+                    "type": "integer",
+                    "name": "productSimilarityThreshold",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "value": 75,
+                    "tooltip": "Specify the similarity threshold (percentage) that will be used to compare products with the specified product when retrieving the advisories from CISA. "
                 }
             ],
             "output_schema": {
@@ -332,7 +354,8 @@
                 "affected_product": "",
                 "company_headquarters_location": "",
                 "country_area_deployed": "",
-                "critical_infrastructure_sector": ""
+                "critical_infrastructure_sector": "",
+                "tag_list": []
             }
         }
     ]
