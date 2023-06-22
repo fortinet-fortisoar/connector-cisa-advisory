@@ -2,7 +2,7 @@
   "type": "workflow_collections",
   "data": [
     {
-      "uuid": "822cb1c4-d8d9-4453-b80e-4255fa7db3b4",
+      "uuid": "24ad57dd-6240-4141-bf10-34916ac560e7",
       "@type": "WorkflowCollection",
       "name": "Sample - CISA Advisory - 1.0.0",
       "description": "CISA Advisory connector fetches the Advisory published by CISA",
@@ -14,10 +14,10 @@
       "workflows": [
         {
           "@type": "Workflow",
-          "uuid": "1dbb1711-b2a1-4765-9a8e-fd03565f919c",
-          "collection": "/api/3/workflow_collections/822cb1c4-d8d9-4453-b80e-4255fa7db3b4",
+          "uuid": "520d0558-1a91-4932-94f6-cf172b0cc48c",
+          "collection": "/api/3/workflow_collections/24ad57dd-6240-4141-bf10-34916ac560e7",
           "triggerLimit": null,
-          "description": "Fetches all the Advisories present till date or by provided date filter.",
+          "description": "Fetches all the advisories published by CISA up to the current date and time, or alternatively, the date and time you specify, based on the selected advisory type.",
           "name": "Get Advisory",
           "tag": "#CISA Advisory",
           "recordTags": [
@@ -28,16 +28,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/87cef382-7e88-4285-ab8b-ba83b8ac8b50",
+          "triggerStep": "/api/3/workflow_steps/51f8b29c-d531-47a3-9c64-09eeb7260e11",
           "steps": [
             {
-              "uuid": "87cef382-7e88-4285-ab8b-ba83b8ac8b50",
+              "uuid": "51f8b29c-d531-47a3-9c64-09eeb7260e11",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "524874da-6368-4f02-a506-9a586b855f12",
+                "route": "e4f6d348-2dc2-44ab-9e97-4f6c8a61f9e8",
                 "title": "CISA Advisory: Get Advisory",
                 "resources": [
                   "alerts"
@@ -57,7 +57,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "3688bb3f-51f9-49f1-ae65-46ad68787e4e",
+              "uuid": "9179f797-4116-4fd9-af8e-57faad006fb0",
               "@type": "WorkflowStep",
               "name": "Get Advisory",
               "description": null,
@@ -82,21 +82,21 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "aa681a0c-2aaf-434f-bdf4-1e8c56e5565a",
+              "uuid": "a877163b-363f-4851-b974-fc85b970d1bf",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Advisory",
-              "sourceStep": "/api/3/workflow_steps/87cef382-7e88-4285-ab8b-ba83b8ac8b50",
-              "targetStep": "/api/3/workflow_steps/3688bb3f-51f9-49f1-ae65-46ad68787e4e"
+              "sourceStep": "/api/3/workflow_steps/51f8b29c-d531-47a3-9c64-09eeb7260e11",
+              "targetStep": "/api/3/workflow_steps/9179f797-4116-4fd9-af8e-57faad006fb0"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "169aab3c-d31e-402a-b061-4827605cd903",
-          "collection": "/api/3/workflow_collections/822cb1c4-d8d9-4453-b80e-4255fa7db3b4",
+          "uuid": "4f8a8d2f-5577-4251-969c-d9cbaf291c3f",
+          "collection": "/api/3/workflow_collections/24ad57dd-6240-4141-bf10-34916ac560e7",
           "triggerLimit": null,
-          "description": "Fetches Advisories on the basis of specified year.",
+          "description": "Fetches all the advisories published by CISA based on the specified year and selected advisory type.",
           "name": "Get Advisory By Year",
           "tag": "#CISA Advisory",
           "recordTags": [
@@ -107,16 +107,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/1cd3c050-de13-4f57-aaca-dcd373dae37e",
+          "triggerStep": "/api/3/workflow_steps/97c91d49-448b-42f5-873a-964abe0932e8",
           "steps": [
             {
-              "uuid": "1cd3c050-de13-4f57-aaca-dcd373dae37e",
+              "uuid": "97c91d49-448b-42f5-873a-964abe0932e8",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "2fceff57-2b64-4415-9883-b552a651773f",
+                "route": "2ea523af-1ba6-40a2-96fd-1e0bd1873a3f",
                 "title": "CISA Advisory: Get Advisory By Year",
                 "resources": [
                   "alerts"
@@ -136,7 +136,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "62f7faab-7136-4fa1-81df-c3e26d7f0fa6",
+              "uuid": "946a8838-2c91-40c1-91d5-08b3facaf0f1",
               "@type": "WorkflowStep",
               "name": "Get Advisory By Year",
               "description": null,
@@ -161,21 +161,21 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "34d95581-d596-45aa-b35c-6424bb57e7c3",
+              "uuid": "f3e6a259-7988-41f7-8dfd-8ba8998ae6ea",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Advisory By Year",
-              "sourceStep": "/api/3/workflow_steps/1cd3c050-de13-4f57-aaca-dcd373dae37e",
-              "targetStep": "/api/3/workflow_steps/62f7faab-7136-4fa1-81df-c3e26d7f0fa6"
+              "sourceStep": "/api/3/workflow_steps/97c91d49-448b-42f5-873a-964abe0932e8",
+              "targetStep": "/api/3/workflow_steps/946a8838-2c91-40c1-91d5-08b3facaf0f1"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "b479e417-6436-4344-8e7f-729b2d603a9e",
-          "collection": "/api/3/workflow_collections/822cb1c4-d8d9-4453-b80e-4255fa7db3b4",
+          "uuid": "ffcefe69-f3ad-44a8-9bcc-28e47e74183f",
+          "collection": "/api/3/workflow_collections/24ad57dd-6240-4141-bf10-34916ac560e7",
           "triggerLimit": null,
-          "description": "Fetches ICS Advisories on the basis of specified vendor name.",
+          "description": "Fetches all the advisories published by CISA based on the specified vendor and selected advisory type. ",
           "name": "Get Advisory By Vendor",
           "tag": "#CISA Advisory",
           "recordTags": [
@@ -186,16 +186,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/5c44d360-c13a-49cb-b963-fc0d38ec260f",
+          "triggerStep": "/api/3/workflow_steps/32a3e21d-d672-4846-bac7-c1783d218fde",
           "steps": [
             {
-              "uuid": "5c44d360-c13a-49cb-b963-fc0d38ec260f",
+              "uuid": "32a3e21d-d672-4846-bac7-c1783d218fde",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "b846d0de-8c00-4abf-8b12-ee006edb9f72",
+                "route": "283c2b62-0447-4db2-8f93-0a97bf5499f4",
                 "title": "CISA Advisory: Get Advisory By Vendor",
                 "resources": [
                   "alerts"
@@ -215,7 +215,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "6de7a252-7afe-4f7d-a864-881499f4f423",
+              "uuid": "c4f78d14-1646-4cd8-8392-841b9b3308d9",
               "@type": "WorkflowStep",
               "name": "Get Advisory By Vendor",
               "description": null,
@@ -242,21 +242,21 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "2fa250d8-fcce-49f6-a99f-c4fe481ff8bd",
+              "uuid": "b6381fd4-f283-424b-a5ef-8133c395f8bb",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Advisory By Vendor",
-              "sourceStep": "/api/3/workflow_steps/5c44d360-c13a-49cb-b963-fc0d38ec260f",
-              "targetStep": "/api/3/workflow_steps/6de7a252-7afe-4f7d-a864-881499f4f423"
+              "sourceStep": "/api/3/workflow_steps/32a3e21d-d672-4846-bac7-c1783d218fde",
+              "targetStep": "/api/3/workflow_steps/c4f78d14-1646-4cd8-8392-841b9b3308d9"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "076e04b3-44a9-4ff4-8f2e-272abc403f29",
-          "collection": "/api/3/workflow_collections/822cb1c4-d8d9-4453-b80e-4255fa7db3b4",
+          "uuid": "29ffb1cf-6305-4a74-a2b5-5101addec4d7",
+          "collection": "/api/3/workflow_collections/24ad57dd-6240-4141-bf10-34916ac560e7",
           "triggerLimit": null,
-          "description": "Fetches Advisories on the basis of specified product name and version.",
+          "description": "Fetches all the advisories published by CISA based on the specified vendor, its product, its version, and selected advisory type. ",
           "name": "Get Advisory By Product",
           "tag": "#CISA Advisory",
           "recordTags": [
@@ -267,16 +267,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/f5a0b327-dfae-4fa4-9512-ed312d504bed",
+          "triggerStep": "/api/3/workflow_steps/eab4e65d-6d33-4de0-b849-f5e2a0ada1e1",
           "steps": [
             {
-              "uuid": "f5a0b327-dfae-4fa4-9512-ed312d504bed",
+              "uuid": "eab4e65d-6d33-4de0-b849-f5e2a0ada1e1",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "a1a8adb3-8372-4a66-aef0-5dc5b7476a0b",
+                "route": "0ade39d0-6d59-4c4e-b765-879ab65a318b",
                 "title": "CISA Advisory: Get Advisory By Product",
                 "resources": [
                   "alerts"
@@ -296,7 +296,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "b21c3db8-1e98-4b94-a7e7-73f57062de68",
+              "uuid": "47d3b508-bf1e-4d71-9d1f-26a4c40df7fe",
               "@type": "WorkflowStep",
               "name": "Get Advisory By Product",
               "description": null,
@@ -305,7 +305,8 @@
                 "name": "CISA Advisory",
                 "config": "''",
                 "params": {
-                  "similarityThreshold": 75
+                  "vendorSimilarityThreshold": 75,
+                  "productSimilarityThreshold": 75
                 },
                 "version": "1.0.0",
                 "connector": "cisa-advisory",
@@ -323,12 +324,12 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "a30d60e7-754b-4636-982c-fc52229c30ff",
+              "uuid": "3f25dab8-400b-46cd-9fe3-5bc7a9640383",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Advisory By Product",
-              "sourceStep": "/api/3/workflow_steps/f5a0b327-dfae-4fa4-9512-ed312d504bed",
-              "targetStep": "/api/3/workflow_steps/b21c3db8-1e98-4b94-a7e7-73f57062de68"
+              "sourceStep": "/api/3/workflow_steps/eab4e65d-6d33-4de0-b849-f5e2a0ada1e1",
+              "targetStep": "/api/3/workflow_steps/47d3b508-bf1e-4d71-9d1f-26a4c40df7fe"
             }
           ]
         }

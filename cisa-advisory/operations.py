@@ -122,8 +122,10 @@ class Advisory():
                         'release_date') == date_time]
                     return filter_data
             else:
-                logger.exception('Date Filter does not support value {0}'.format(params['date_filter']))
-                raise Exception('Date Filter does not support value {0}'.format(params['date_filter']))
+                logger.exception(
+                    'Date Filter does not support value {0}'.format(params['date_filter']))
+                raise Exception('Date Filter does not support value {0}'.format(
+                    params['date_filter']))
         except Exception as err:
             logger.exception(str(err))
             raise ConnectorError(err)
@@ -192,7 +194,8 @@ def get_advisory_by_year(config, params):
         advisory_obj = Advisory()
         yum_repo_url = advisory_obj.get_status(config)[1]
         advisory_type = ADVISORY_TYPE.get(params['advisory_type'])
-        output = advisory_obj.get_ics_data_by_year(params, advisory_type, yum_repo_url)
+        output = advisory_obj.get_ics_data_by_year(
+            params, advisory_type, yum_repo_url)
         return sorted(output, key=lambda k: k['release_date'], reverse=True)
     except Exception as err:
         logger.exception(str(err))
@@ -223,11 +226,13 @@ def get_advisory_by_product(config, params):
         advisory_obj = Advisory()
         yum_repo_url = advisory_obj.get_status(config)[1]
         advisory_type = ADVISORY_TYPE.get(params['advisory_type'])
-        ics_advisory_data = advisory_obj.get_ics_data(advisory_type, yum_repo_url)
-        for advisory in ics_advisory_data:
-            ratio = advisory_obj.set_ratio(
+        advisory_data = advisory_obj.get_ics_data(advisory_type, yum_repo_url)
+        for advisory in advisory_data:
+            vendor_ratio = advisory_obj.set_ratio(
+                str(params['vendor'].strip()), advisory['vendor'])
+            product_ratio = advisory_obj.set_ratio(
                 str(params['product'].strip()), advisory['product'])
-            if ratio >= params['similarityThreshold']:
+            if vendor_ratio >= params['vendorSimilarityThreshold'] and product_ratio >= params['productSimilarityThreshold']:
                 if str(params['version']).strip() != "":
                     if str(params['version']).strip() in advisory['affected_product']:
                         output.append(advisory)
@@ -244,6 +249,7 @@ def get_advisory_by_product(config, params):
 def check_health(config):
     advisory = Advisory()
     return advisory.get_status(config)[0]
+
 
 operations = {
     "get_advisory": get_advisory,
