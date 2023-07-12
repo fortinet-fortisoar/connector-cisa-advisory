@@ -1,6 +1,6 @@
 {
     "name": "cisa-advisory",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "label": "CISA Advisory",
     "description": "CISA Advisory connector fetches the Advisory published by CISA",
     "publisher": "Fortinet",
@@ -67,6 +67,7 @@
                         "Last 3 Months",
                         "Last 6 Months",
                         "Last Date Published Advisory",
+                        "After Date",
                         "Custom Date"
                     ],
                     "onchange": {
@@ -81,6 +82,19 @@
                                 "required": true,
                                 "value": "",
                                 "tooltip": "Specify the release date or epoch time of advisory."
+                            }
+                        ],
+                        "After Date": [
+                            {
+                                "name": "selectDate",
+                                "title": "Select Date",
+                                "description": "Fetches all the advisory after provided date.",
+                                "type": "datetime",
+                                "editable": true,
+                                "visible": true,
+                                "required": true,
+                                "value": "",
+                                "tooltip": "Fetches all the advisory after provided date."
                             }
                         ]
                     },

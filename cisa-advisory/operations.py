@@ -107,6 +107,29 @@ class Advisory():
                         return filter_ics_advisory
                     else:
                         today_date += delta
+            if params['date_filter'] == 'After Date':
+                filter_data = []
+                pattern = r'^\d{4}-\d{2}-\d{2}T'
+                if isinstance(params['selectDate'], int):
+                    date_time = datetime.datetime.fromtimestamp(
+                        params['selectDate']).strftime("%Y-%m-%d")
+                    date_list = self.get_dates_between(
+                        date_time, today_date.isoformat())
+                    for date in date_list:
+                        for ics in ics_data:
+                            if ics.get('release_date') == date.strftime("%Y-%m-%d"):
+                                filter_data.append(ics)
+                    return filter_data
+                elif re.match(pattern, params['selectDate']):
+                    date_time = datetime.datetime.strptime(
+                        params['selectDate'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
+                    date_list = self.get_dates_between(
+                        date_time, today_date.isoformat())
+                    for date in date_list:
+                        for ics in ics_data:
+                            if ics.get('release_date') == date.strftime("%Y-%m-%d"):
+                                filter_data.append(ics)
+                    return filter_data
             if params['date_filter'] == 'Custom Date':
                 pattern = r'^\d{4}-\d{2}-\d{2}T'
                 if isinstance(params['selectDate'], int):
@@ -129,6 +152,21 @@ class Advisory():
         except Exception as err:
             logger.exception(str(err))
             raise ConnectorError(err)
+
+    def get_dates_between(self, previous_date, current_date):
+        previous_date = datetime.date.fromisoformat(previous_date)
+        current_date = datetime.date.fromisoformat(current_date)
+
+        # Initialize a list to store the dates
+        dates_between = []
+
+        # Iterate through each date between the previous and current date
+        current = previous_date
+        while current <= current_date:
+            dates_between.append(current)
+            current += datetime.timedelta(days=1)
+
+        return dates_between
 
     def get_advisory_by_date(self, end_date, start_date, ics_data):
         try:
