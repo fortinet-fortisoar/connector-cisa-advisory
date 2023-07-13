@@ -4,7 +4,7 @@
     {
       "uuid": "24ad57dd-6240-4141-bf10-34916ac560e7",
       "@type": "WorkflowCollection",
-      "name": "Sample - CISA Advisory - 1.0.0",
+      "name": "Sample - CISA Advisory - 1.0.1",
       "description": "CISA Advisory connector fetches the Advisory published by CISA",
       "visible": true,
       "image": null,
@@ -66,7 +66,7 @@
                 "name": "CISA Advisory",
                 "config": "''",
                 "params": [],
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory",
                 "operationTitle": "Get Advisory",
@@ -145,7 +145,7 @@
                 "name": "CISA Advisory",
                 "config": "''",
                 "params": [],
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory_by_year",
                 "operationTitle": "Get Advisory By Year",
@@ -226,7 +226,7 @@
                 "params": {
                   "similarityThreshold": 75
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory_by_vendor",
                 "operationTitle": "Get Advisory By Vendor",
@@ -308,7 +308,7 @@
                   "vendorSimilarityThreshold": 75,
                   "productSimilarityThreshold": 75
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory_by_product",
                 "operationTitle": "Get Advisory By Product",
