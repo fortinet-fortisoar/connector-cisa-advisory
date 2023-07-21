@@ -1,3 +1,3 @@
 #### What's Added
-  
-- Added new date filter `After Date` under action **Get Advisory** to get advisory after particular date.
+
+- Added a new drop-down filter option *After Date* under the **Date Filter** parameter in **Get Advisory** action to get advisories after a particular date. 
