@@ -23,7 +23,7 @@
     "category": "Utilities",
     "active": true,
     "cs_compatible": true,
-    "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/cisa-advisory/614/cisa-advisory-v1-0-0",
+    "help_online": " https://docs.fortinet.com/document/fortisoar/1.0.1/cisa-advisory/634/cisa-advisory-v1-0-1",
     "cs_approved": false,
     "operations": [
         {
