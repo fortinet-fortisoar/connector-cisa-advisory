@@ -160,6 +160,9 @@ class Advisory():
         # Initialize a list to store the dates
         dates_between = []
 
+        # Add one more day on provided date
+        previous_date += datetime.timedelta(days=1)
+        
         # Iterate through each date between the previous and current date
         current = previous_date
         while current <= current_date:
