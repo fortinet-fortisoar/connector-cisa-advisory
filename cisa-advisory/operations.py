@@ -162,7 +162,7 @@ class Advisory():
 
         # Add one more day on provided date
         previous_date += datetime.timedelta(days=1)
-        
+
         # Iterate through each date between the previous and current date
         current = previous_date
         while current <= current_date:
@@ -212,6 +212,10 @@ class Advisory():
         except Exception as err:
             logger.exception(str(err))
             raise Exception(err)
+
+    def get_known_exploited_vulnerability_cves(self):
+        response = requests.get(CISA_KNOWN_EXPLOITED_VULNERABILITY_URL)
+        return json.loads(response.text)
 
 
 def get_advisory(config, params):
@@ -273,7 +277,8 @@ def get_advisory_by_product(config, params):
                 str(params['vendor'].strip()), advisory['vendor'])
             product_ratio = advisory_obj.set_ratio(
                 str(params['product'].strip()), advisory['product'])
-            if vendor_ratio >= params['vendorSimilarityThreshold'] and product_ratio >= params['productSimilarityThreshold']:
+            if vendor_ratio >= params['vendorSimilarityThreshold'] and product_ratio >= params[
+                    'productSimilarityThreshold']:
                 if str(params['version']).strip() != "":
                     if str(params['version']).strip() in advisory['affected_product']:
                         output.append(advisory)
@@ -282,6 +287,15 @@ def get_advisory_by_product(config, params):
                 else:
                     output.append(advisory)
         return sorted(output, key=lambda k: k['release_date'], reverse=True)
+    except Exception as err:
+        logger.exception(str(err))
+        raise ConnectorError(err)
+
+
+def get_known_exploited_vulnerability_cves(config, params):
+    try:
+        advisory_obj = Advisory()
+        return advisory_obj.get_known_exploited_vulnerability_cves()
     except Exception as err:
         logger.exception(str(err))
         raise ConnectorError(err)
@@ -296,5 +310,6 @@ operations = {
     "get_advisory": get_advisory,
     "get_advisory_by_year": get_advisory_by_year,
     "get_advisory_by_vendor": get_advisory_by_vendor,
-    "get_advisory_by_product": get_advisory_by_product
+    "get_advisory_by_product": get_advisory_by_product,
+    "get_known_exploited_vulnerability_cves": get_known_exploited_vulnerability_cves
 }

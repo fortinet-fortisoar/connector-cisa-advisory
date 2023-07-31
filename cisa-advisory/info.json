@@ -1,6 +1,6 @@
 {
     "name": "cisa-advisory",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "label": "CISA Advisory",
     "description": "CISA Advisory connector fetches the Advisory published by CISA",
     "publisher": "Fortinet",
@@ -371,6 +371,36 @@
                 "critical_infrastructure_sector": "",
                 "tag_list": []
             }
+        },
+        {
+            "operation": "get_known_exploited_vulnerability_cves",
+            "title": "Get Known Exploited Vulnerability CVEs",
+            "annotation": "get_known_exploited_vulnerability_cves",
+            "description": "Fetches all the Known Exploited Vulnerability CVEs published by CISA.",
+            "category": "investigation",
+            "is_config_required": true,
+            "visible": true,
+            "enabled": true,
+            "output_schema": {
+                "count": "",
+                "title": "",
+                "dateReleased": "",
+                "catalogVersion": "",
+                "vulnerabilities": [
+                    {
+                        "cveID": "",
+                        "notes": "",
+                        "dueDate": "",
+                        "product": "",
+                        "dateAdded": "",
+                        "vendorProject": "",
+                        "requiredAction": "",
+                        "shortDescription": "",
+                        "vulnerabilityName": ""
+                    }
+                ]
+            },
+            "parameters": []
         }
     ]
 }
