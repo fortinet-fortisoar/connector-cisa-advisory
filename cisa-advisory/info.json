@@ -2,7 +2,7 @@
     "name": "cisa-advisory",
     "version": "1.1.0",
     "label": "CISA Advisory",
-    "description": "CISA Advisory connector fetches the Advisory published by CISA",
+    "description": "CISA Advisory connector fetches the Advisory and Known Exploited Vulnerability (KEV) CVE published by CISA.",
     "publisher": "Fortinet",
     "icon_small_name": "samll.png",
     "icon_large_name": "large.png",
