@@ -4,7 +4,7 @@
     {
       "uuid": "24ad57dd-6240-4141-bf10-34916ac560e7",
       "@type": "WorkflowCollection",
-      "name": "Sample - CISA Advisory - 1.0.1",
+      "name": "Sample - CISA Advisory - 1.1.0",
       "description": "CISA Advisory connector fetches the Advisory published by CISA",
       "visible": true,
       "image": null,
@@ -66,7 +66,7 @@
                 "name": "CISA Advisory",
                 "config": "''",
                 "params": [],
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory",
                 "operationTitle": "Get Advisory",
@@ -145,7 +145,7 @@
                 "name": "CISA Advisory",
                 "config": "''",
                 "params": [],
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory_by_year",
                 "operationTitle": "Get Advisory By Year",
@@ -226,7 +226,7 @@
                 "params": {
                   "similarityThreshold": 75
                 },
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory_by_vendor",
                 "operationTitle": "Get Advisory By Vendor",
@@ -308,7 +308,7 @@
                   "vendorSimilarityThreshold": 75,
                   "productSimilarityThreshold": 75
                 },
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "cisa-advisory",
                 "operation": "get_advisory_by_product",
                 "operationTitle": "Get Advisory By Product",
@@ -330,6 +330,85 @@
               "name": "Start-> Get Advisory By Product",
               "sourceStep": "/api/3/workflow_steps/eab4e65d-6d33-4de0-b849-f5e2a0ada1e1",
               "targetStep": "/api/3/workflow_steps/47d3b508-bf1e-4d71-9d1f-26a4c40df7fe"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "0878d194-f0cf-49b0-bbb5-1441a0168daf",
+          "collection": "/api/3/workflow_collections/21bed50f-faf9-4501-92ac-9d73728a418a",
+          "triggerLimit": null,
+          "description": "Fetches all the Known Exploited Vulnerability CVEs published by CISA.",
+          "name": "Get Known Exploited Vulnerability CVEs",
+          "tag": "#CISA Advisory",
+          "recordTags": [
+            "cisa-advisory"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/1677ee17-9958-46c8-bb2d-b924a6eebc10",
+          "steps": [
+            {
+              "uuid": "1677ee17-9958-46c8-bb2d-b924a6eebc10",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "b81ab7a2-c45d-4d32-ac30-a68054278c81",
+                "title": "CISA Advisory: Get Known Exploited Vulnerability CVEs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "737e849b-bc42-4d6b-897b-d7e13a9758cb",
+              "@type": "WorkflowStep",
+              "name": "Get Known Exploited Vulnerability CVEs",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "CISA Advisory",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "cisa-advisory",
+                "operation": "get_known_exploited_vulnerability_cves",
+                "operationTitle": "Get Known Exploited Vulnerability CVEs",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "a6b7c2b9-1618-4add-adb1-a31e209d7ac3",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Known Exploited Vulnerability CVEs",
+              "sourceStep": "/api/3/workflow_steps/1677ee17-9958-46c8-bb2d-b924a6eebc10",
+              "targetStep": "/api/3/workflow_steps/737e849b-bc42-4d6b-897b-d7e13a9758cb"
             }
           ]
         }
