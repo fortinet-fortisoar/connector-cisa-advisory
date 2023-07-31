@@ -381,7 +381,25 @@
             "is_config_required": true,
             "visible": true,
             "enabled": true,
-            "output_schema": {},
+            "output_schema": {
+                "count": "",
+                "title": "",
+                "dateReleased": "",
+                "catalogVersion": "",
+                "vulnerabilities": [
+                    {
+                        "cveID": "",
+                        "notes": "",
+                        "dueDate": "",
+                        "product": "",
+                        "dateAdded": "",
+                        "vendorProject": "",
+                        "requiredAction": "",
+                        "shortDescription": "",
+                        "vulnerabilityName": ""
+                    }
+                ]
+            },
             "parameters": []
         }
     ]
