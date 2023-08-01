@@ -1,3 +1,3 @@
 #### What's Added
 
-- Added a new drop-down filter option *After Date* under the **Date Filter** parameter in **Get Advisory** action to get advisories after a particular date. 
+- Added new action `GET KNOWN EXPLOITED VULNERABILITY CVEs` to fetch *Known Exploited Vulnerability (KEV) CVEs* published by CISA.
