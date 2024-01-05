@@ -213,9 +213,10 @@ class Advisory():
             logger.exception(str(err))
             raise Exception(err)
 
-    def get_known_exploited_vulnerability_cves(self):
-        response = requests.get(CISA_KNOWN_EXPLOITED_VULNERABILITY_URL)
-        return json.loads(response.text)
+    def get_known_exploited_vulnerability_cves(self, kev_cve_url):
+        response = requests.get(kev_cve_url)
+        if response.status_code == 200:
+	        return json.loads(response.text)
 
 
 def get_advisory(config, params):
@@ -295,7 +296,9 @@ def get_advisory_by_product(config, params):
 def get_known_exploited_vulnerability_cves(config, params):
     try:
         advisory_obj = Advisory()
-        return advisory_obj.get_known_exploited_vulnerability_cves()
+        yum_repo_url = advisory_obj.get_status(config)[1]
+        kev_cve_url = yum_repo_url + CISA_KNOWN_EXPLOITED_VULNERABILITY_URL
+        return advisory_obj.get_known_exploited_vulnerability_cves(kev_cve_url)
     except Exception as err:
         logger.exception(str(err))
         raise ConnectorError(err)
