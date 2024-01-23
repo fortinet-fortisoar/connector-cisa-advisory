@@ -23,7 +23,7 @@
     "category": "Utilities",
     "active": true,
     "cs_compatible": true,
-    "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.1/cisa-advisory/634/cisa-advisory-v1-0-1",
+    "help_online": "https://docs.fortinet.com/document/fortisoar/1.1.0/cisa-advisory/766/cisa-advisory-v1-1-0",
     "cs_approved": false,
     "operations": [
         {
@@ -154,6 +154,7 @@
                                 "visible": true,
                                 "editable": true,
                                 "options": [
+                                    "2024",
                                     "2023",
                                     "2022",
                                     "2021",
@@ -181,6 +182,7 @@
                                 "visible": true,
                                 "editable": true,
                                 "options": [
+                                    "2024",
                                     "2023",
                                     "2022",
                                     "2021",
