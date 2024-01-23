@@ -1,5 +1,8 @@
 """
-This file will be auto-generated on each "new operation action", so avoid editing in this file.
+Copyright start
+MIT License
+Copyright (c) 2024 Fortinet Inc
+Copyright end
 """
 import json
 import re
