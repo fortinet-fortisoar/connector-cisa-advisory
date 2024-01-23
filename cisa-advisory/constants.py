@@ -1,3 +1,10 @@
+"""
+Copyright start
+MIT License
+Copyright (c) 2024 Fortinet Inc
+Copyright end
+"""
+
 ADVISORY_TYPE = {
     "ICS Advisory": "ics-advisory",
     "ICS Medical Advisory": "ics-medical-advisory"
